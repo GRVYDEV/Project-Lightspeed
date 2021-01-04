@@ -2,10 +2,10 @@
 Install docker and docker-compose (https://docs.docker.com/compose/install/) 
 
 # Using the docker containers
-Standing at the root folder and run ``docker-compose up`` will start and build the containers. The ingest will give some warnings when run, could probably be suppressed somehow. 
+Standing at the root folder and run ``docker-compose up`` will start and build the containers. The ingest will give some warnings when run, could probably be suppressed in rust config. 
 
 ## Development
-Use ``docker-compose up --build`` ensures the containers are checked for changes and rebuilt if needed.
+Use ``docker-compose up --build`` ensures the containers are checked for changes and rebuilt if needed when run. Otherwise you might see it using a cached version.
 
 ## run as daemon/detached
 use ``docker-compose up -d`` to start it detached. 
@@ -19,4 +19,4 @@ Open the dockerfile under webrtc and edit the parameter in the ``CMD ["lightspee
 #### react
 Open the dockerfile under react and edit the ``RUN sed -i "s|stream.gud.software|localhost|g" src/wsUrl.js`` command. The one saying ``localhost`` is what the original string is replace with. So change ``localhost`` to your hostname or ip. Make sure to have no spaces between the ``|`` pipes. 
 
-If you want to configure the port of the wsURL.js too, you can replace that command with ``RUN sed -i "s|stream.gud.software:8080|localhost:8000|g" src/wsUrl.js`` and thus it also replaces the port part of the string with your new ip/port combo. 
+If you want to configure the port of the ``wsURL.js`` too, you can replace that command with ``RUN sed -i "s|stream.gud.software:8080|localhost:8000|g" src/wsUrl.js`` and thus it also replaces the port part of the string with your new ip/port combo. 
