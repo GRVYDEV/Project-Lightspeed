@@ -52,8 +52,15 @@
         </li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
+    <li><a href="#usage">Usage</a>
+        <ul>
+            <li><a href="#lightspeed-ingest">Lightspeed Ingest</a></li>
+            <li><a href="#lightspeed-webrtc">Lightspeed WebRTC</a></li>
+            <li><a href="#lightspeed-react">Lightspeed React</a></li>
+        </ul>
+    </li>
     <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#bugs">Bugs</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -67,7 +74,7 @@
 
 <!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
 
-This is one of three components required for Project Lightspeed. Project Lightspeed is a fully self contained live streaming server. With this you will be able to deploy your own sub-second latency live streaming platform. This particular repository takes RTP packets sent to the server and broadcasts them over WebRTC. In order for this to work the Project Lightspeed Ingest server is required to perfrom the FTL handshake with OBS. In order to view the live stream the Project Lightspeed viewer is required.
+This is Project Lightspeed. Project Lightspeed is a fully self contained live streaming server. With this you will be able to deploy your own sub-second latency live streaming platform. This repository contains the instructions for installing and deploying the entire application.
 
 ### Built With
 
@@ -130,7 +137,14 @@ npm install
 
 ## Usage
 
-To run type the following command.
+#### Lightspeed Ingest
+
+```sh
+cd Lightspeed-ingest
+cargo run --release
+```
+
+#### Lightspeed WebRTC
 
 Using go get
 
@@ -146,11 +160,25 @@ go build
 ./lightspeed-webrtc --addr=XXX.XXX.XXX.XXX
 ```
 
-#### Arguments
+##### Arguments
 
 | Argument | Supported Values   | Notes                                                                                                                                                                                                                                                   |
 | :------- | :----------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `--addr` | A valid IP address | This is the local Ip address of your machine. It defaults to localhost but should be set to your local IP. For example 10.17.0.5 This is where the server will listen for UDP packets and where it will host the websocket endpoint for SDP negotiation |
+
+#### Lightspeed React
+First you need to configure the websocket url in `src/wsUrl.js`. If you are using an IP then it will be the public IP of your machine if you have DNS then it will be your hostname.
+
+You can host the static site locally using `serve` which can be found [here](https://www.npmjs.com/package/serve)
+
+```sh
+cd Lightspeed-react
+npm build
+serve -s build -l 80
+```
+
+This will serve the build folder on port 80 of your machine meaning it can be retrevied via a browser by either going to your machines public IP or hostname
+
 
 <!-- _For more examples, please refer to the [Documentation](https://example.com)_ -->
 
@@ -158,13 +186,19 @@ go build
 
 ## Roadmap
 
+I will be fleshing out the roadmap in the coming days. As of right now I want to get this to a point where it is as close to other live streaming services as possible. If there are any features that you want to see then feel free to suggest them!
+
 See the [open issues](https://github.com/GRVYDEV/Project-Lightspeed/issues) for a list of proposed features (and known issues).
+
+## Bugs
+
+I am very from perfect and there are bound to be bugs and things I've overlooked in the installation process. Please, add issues and feel free to reach out if anything is unclear. If this gets enough attention I can make a Discord server where I can more easily interact with people.
 
 <!-- CONTRIBUTING -->
 
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**. 
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
@@ -193,18 +227,3 @@ Project Link: [https://github.com/GRVYDEV/Project-Lightspeed](https://github.com
 - [Sean Dubois](https://github.com/Sean-Der)
 - [Hayden McAfee](https://github.com/haydenmc)
 
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-
-[contributors-shield]: https://img.shields.io/github/contributors/GRVYDEV/repo.svg?style=for-the-badge
-[contributors-url]: https://github.com/GRVYDEV/repo/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/GRVYDEV/repo.svg?style=for-the-badge
-[forks-url]: https://github.com/GRVYDEV/repo/network/members
-[stars-shield]: https://img.shields.io/github/stars/GRVYDEV/repo.svg?style=for-the-badge
-[stars-url]: https://github.com/GRVYDEV/repo/stargazers
-[issues-shield]: https://img.shields.io/github/issues/GRVYDEV/repo.svg?style=for-the-badge
-[issues-url]: https://github.com/GRVYDEV/repo/issues
-[license-shield]: https://img.shields.io/github/license/GRVYDEV/repo.svg?style=for-the-badge
-[license-url]: https://github.com/GRVYDEV/repo/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/GRVYDEV
