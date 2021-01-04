@@ -1,0 +1,9 @@
+[submodule "Lightspeed-webrtc"]
+	path = Lightspeed-webrtc
+	url = https://github.com/GRVYDEV/Lightspeed-webrtc
+[submodule "Lightspeed-ingest"]
+	path = Lightspeed-ingest
+	url = https://github.com/GRVYDEV/Lightspeed-ingest
+[submodule "Lightspeed-react"]
+	path = Lightspeed-react
+	url = https://github.com/GRVYDEV/Lightspeed-react
