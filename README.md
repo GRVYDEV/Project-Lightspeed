@@ -182,7 +182,12 @@ View Lightspeed in your web browser by visiting http://hostname or http://your.i
 
 ## Streaming From OBS
 
-By default since we are using the FTL protocol you cannot just use a custom server. You will need to edit your `services.json` file. It can be found at `%AppData%\obs-studio\plugin_config\rtmp-services\services.json` and `/Users/YOURUSERNAME/Library/Application\ Support/obs-studio/plugin_config/rtmp-services/services.json` on Windows.
+By default since we are using the FTL protocol you cannot just use a custom server. You will need to edit your `services.json` file. It can be found at:
+
+Windows: `%AppData%\obs-studio\plugin_config\rtmp-services\services.json`
+
+Mac: `/Users/YOURUSERNAME/Library/Application\ Support/obs-studio/plugin_config/rtmp-services/services.json`
+
 
 Paste the below into the services array and change the url to either the IP or the hostname of your Project Lightspeed server
 ```json
