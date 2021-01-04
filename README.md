@@ -53,7 +53,11 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#streaming-from-obs">Streaming From OBS</a></li>
+    <li><a href="#streaming-from-obs">Streaming From OBS</a>
+        <ul>
+            <li><a href="#stream-key">Stream Key</a></li>
+        </ul>
+    </li>  
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#bugs">Bugs</a></li>
     <li><a href="#contributing">Contributing</a></li>
@@ -207,6 +211,8 @@ Paste this into the services array and change the url to either the IP or the ho
 After restarting OBS you should be able to see your service in the OBS settings pane
 (Special Thanks to [Glimesh](https://github.com/Glimesh) for these instructions)
 
+### Stream Key
+By default the stream key is `123456789-aBcDeFgHiJkLmNoPqRsTuVwXyZ123456` This can be changed by editing line 248 in `src/connection.rs` in the Lighspeed Ingest project. In the future I will develop a system that makes it easier to reset and manage your stream key 
 <!-- ROADMAP -->
 
 ## Roadmap
