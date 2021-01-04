@@ -10,7 +10,7 @@ WORKDIR /app/Lightspeed-react
 RUN npm install
 
 # configure ip, hardcoded to webrtc container address (8080) for now
-RUN sed -i "s|stream.gud.software|lightspeed-webrtc |g" src/wsUrl.js
+RUN sed -i "s|stream.gud.software|localhost|g" src/wsUrl.js
 
 # build it
 RUN npm run build

@@ -5,19 +5,23 @@ services:
     lightspeed-ingest:     
         restart: on-failure
         build: ingest/
+        network_mode: host
         ports:
             - "8084:8084"
     
-    # react - serves on port 80, needs the wsUrl which is webrtc ip:8080
+    # react - serves on port 80, needs the wsUrl which is public ip:8080
     lightspeed-react:    
         restart: on-failure
         build: react/
+        network_mode: host
         ports:
-            - "8080:80"
+            - "80:80"
 
     # webrtc, defaults to localhost:8080. 
     lightspeed-webrtc:     
         restart: on-failure
         build: webrtc/
+        network_mode: host
         ports:
-            - "8888:8080"
+            - "8080:8080"
+            - "65535:65535/udp"
