@@ -73,7 +73,7 @@
 
 <!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
 
-This is Project Lightspeed. Project Lightspeed is a fully self contained live streaming server. With this you will be able to deploy your own sub-second latency live streaming platform. This repository contains the instructions for installing and deploying the entire application.
+Project Lightspeed is a fully self contained live streaming server. With Lightspeed you will be able to deploy your own sub-second latency live streaming platform. The Lightspeed repository contains the instructions for installing and deploying the entire application.
 
 ### Built With
 
@@ -91,11 +91,11 @@ This is Project Lightspeed. Project Lightspeed is a fully self contained live st
 
 ## Getting Started
 
-In order to get a copy running you will need to install all 3 repositories. There are installation instructions in each repo however I will include them here for the sake of simplicity.
+In order to get Lightspeed running you will need to install all 3 repositories. There are installation instructions in each repository however I will include them here for the sake of simplicity.
 
 ### Prerequisites
 
-In order to run this [Golang](https://golang.org/doc/install), [Rust](https://www.rust-lang.org/tools/install), and [npm](https://www.npmjs.com/get-npm) are required. Additionally the Rust repo requires a C compiler. If you get a `linker cc not found` error then you need to install a C compiler.
+In order to run Lightspeed, [Golang](https://golang.org/doc/install), [Rust](https://www.rust-lang.org/tools/install), and [npm](https://www.npmjs.com/get-npm) are required. Additionally the Rust repo requires a C compiler. If you get a `linker cc not found` error then you need to install a C compiler.
 
 ### Installation
 
@@ -177,16 +177,23 @@ npm build
 serve -s build -l 80
 ```
 
-This will serve the build folder on port 80 of your machine meaning it can be retrevied via a browser by either going to your machines public IP or hostname
+The above will serve the build folder on port 80.
+
+View Lightspeed in your web browser by visiting http://hostname or http://your.ip.address.here
 
 
 <!-- _For more examples, please refer to the [Documentation](https://example.com)_ -->
 
 ## Streaming From OBS
 
-By default since we are using the FTL protocol you cannot just use a custom server. You will need to edit your `services.json` file. It can be found at `%AppData%\obs-studio\plugin_config\rtmp-services\services.json` on Windows and `/Users/YOURUSERNAME/Library/Application\ Support/obs-studio/plugin_config/rtmp-services/services.json`
+By default since we are using the FTL protocol you cannot just use a custom server. You will need to edit your `services.json` file. It can be found at:
 
-Paste this into the services array and change the url to either the IP or the hostname of your Project Lightspeed server
+Windows: `%AppData%\obs-studio\plugin_config\rtmp-services\services.json`
+
+Mac: `/Users/YOURUSERNAME/Library/Application\ Support/obs-studio/plugin_config/rtmp-services/services.json`
+
+
+Paste the below into the services array and change the url to either the IP or the hostname of your Project Lightspeed server
 ```json
 {
     "name": "Project Lightspeed",
@@ -217,13 +224,13 @@ By default the stream key is `123456789-aBcDeFgHiJkLmNoPqRsTuVwXyZ123456` This c
 
 ## Roadmap
 
-I will be fleshing out the roadmap in the coming days. As of right now I want to get this to a point where it is as close to other live streaming services as possible. If there are any features that you want to see then feel free to suggest them!
+I will be fleshing out the roadmap in the coming days. As of right now I want to get Lightspeed to a point where it is as close to other live streaming services as possible. If there are any features that you want to see then feel free to suggest them!
 
 See the [open issues](https://github.com/GRVYDEV/Project-Lightspeed/issues) for a list of proposed features (and known issues).
 
 ## Bugs
 
-I am very from perfect and there are bound to be bugs and things I've overlooked in the installation process. Please, add issues and feel free to reach out if anything is unclear. If this gets enough attention I can make a Discord server where I can more easily interact with people.
+I am very far from perfect and there are bound to be bugs and things I've overlooked in the installation process. Please add issues and feel free to reach out if anything is unclear. If Lightspeed gets enough attention I can make a Discord server where I can more easily interact with people.
 
 <!-- CONTRIBUTING -->
 
@@ -232,9 +239,9 @@ I am very from perfect and there are bound to be bugs and things I've overlooked
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**. 
 
 1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
+2. Create your Feature Branch: ``git checkout -b feature/AmazingFeature``
+3. Commit your Changes: ``git commit -m 'Add some AmazingFeature'``
+4. Push to the Branch: ``git push origin feature/AmazingFeature``
 5. Open a Pull Request
 
 <!-- LICENSE -->
