@@ -52,13 +52,8 @@
         </li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a>
-        <ul>
-            <li><a href="#lightspeed-ingest">Lightspeed Ingest</a></li>
-            <li><a href="#lightspeed-webrtc">Lightspeed WebRTC</a></li>
-            <li><a href="#lightspeed-react">Lightspeed React</a></li>
-        </ul>
-    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#streaming-from-obs">Streaming From OBS</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#bugs">Bugs</a></li>
     <li><a href="#contributing">Contributing</a></li>
@@ -122,6 +117,7 @@ Using git
 ```sh
 git clone https://github.com/GRVYDEV/Lightspeed-webrtc.git
 cd Lightspeed-webrtc
+export GO111MODULE=on
 go build
 ```
 
@@ -181,6 +177,35 @@ This will serve the build folder on port 80 of your machine meaning it can be re
 
 
 <!-- _For more examples, please refer to the [Documentation](https://example.com)_ -->
+
+## Streaming From OBS
+
+By default since we are using the FTL protocol you cannot just use a custom server. You will need to edit your `services.json` file. It can be found at `%AppData%\obs-studio\plugin_config\rtmp-services\services.json` on Windows and `/Users/YOURUSERNAME/Library/Application\ Support/obs-studio/plugin_config/rtmp-services/services.json`
+
+Paste this into the services array and change the url to either the IP or the hostname of your Project Lightspeed server
+```json
+{
+    "name": "Project Lightspeed",
+    "common": false,
+    "servers": [
+        {
+            "name": "SERVER NAME HERE",
+            "url": "your.lightspeed.hostname"
+        }
+    ],
+    "recommended": {
+        "keyint": 2,
+        "output": "ftl_output",
+        "max audio bitrate": 160,
+        "max video bitrate": 8000,
+        "profile": "main",
+        "bframes": 0
+    }
+},
+```
+
+After restarting OBS you should be able to see your service in the OBS settings pane
+(Special Thanks to [Glimesh](https://github.com/Glimesh) for these instructions)
 
 <!-- ROADMAP -->
 
