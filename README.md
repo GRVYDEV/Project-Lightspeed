@@ -1,30 +1,30 @@
 <p align="center">
-<a  href="https://github.com/GRVYDEV/Lightspeed-Project-Lightspeed">
+<a  href="https://github.com/GRVYDEV/Project-Lightspeed">
     <img src="images/lightspeedlogo.svg" alt="Logo" width="150" height="150">
 </a>
 </p>
   <h1 align="center">Project Lightspeed</h1>
 <div align="center">
-  <a href="https://github.com/GRVYDEV/Lightspeed-Project-Lightspeed/stargazers"><img src="https://img.shields.io/github/stars/GRVYDEV/Lightspeed-Project-Lightspeed" alt="Stars Badge"/></a>
-<a href="https://github.com/GRVYDEV/Lightspeed-Project-Lightspeed/network/members"><img src="https://img.shields.io/github/forks/GRVYDEV/Lightspeed-Project-Lightspeed" alt="Forks Badge"/></a>
-<a href="https://github.com/GRVYDEV/Lightspeed-Project-Lightspeed/pulls"><img src="https://img.shields.io/github/issues-pr/GRVYDEV/Lightspeed-Project-Lightspeed" alt="Pull Requests Badge"/></a>
-<a href="https://github.com/GRVYDEV/Lightspeed-Project-Lightspeed/issues"><img src="https://img.shields.io/github/issues/GRVYDEV/Lightspeed-Project-Lightspeed" alt="Issues Badge"/></a>
-<a href="https://github.com/GRVYDEV/Lightspeed-Project-Lightspeed/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/GRVYDEV/Lightspeed-Project-Lightspeed?color=2b9348"></a>
-<a href="https://github.com/GRVYDEV/Lightspeed-Project-Lightspeed/blob/master/LICENSE"><img src="https://img.shields.io/github/license/GRVYDEV/Lightspeed-Project-Lightspeed?color=2b9348" alt="License Badge"/></a>
+  <a href="https://github.com/GRVYDEV/Project-Lightspeed/stargazers"><img src="https://img.shields.io/github/stars/GRVYDEV/Project-Lightspeed" alt="Stars Badge"/></a>
+<a href="https://github.com/GRVYDEV/Project-Lightspeed/network/members"><img src="https://img.shields.io/github/forks/GRVYDEV/Project-Lightspeed" alt="Forks Badge"/></a>
+<a href="https://github.com/GRVYDEV/Project-Lightspeed/pulls"><img src="https://img.shields.io/github/issues-pr/GRVYDEV/Project-Lightspeed" alt="Pull Requests Badge"/></a>
+<a href="https://github.com/GRVYDEV/Project-Lightspeed/issues"><img src="https://img.shields.io/github/issues/GRVYDEV/Project-Lightspeed" alt="Issues Badge"/></a>
+<a href="https://github.com/GRVYDEV/Project-Lightspeed/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/GRVYDEV/Project-Lightspeed?color=2b9348"></a>
+<a href="https://github.com/GRVYDEV/Project-Lightspeed/blob/master/LICENSE"><img src="https://img.shields.io/github/license/GRVYDEV/Project-Lightspeed?color=2b9348" alt="License Badge"/></a>
 </div>
 <br />
 <p align="center">
   <p align="center">
     A self contained OBS -> FTL -> WebRTC live streaming server. Comprised of 3 parts once configured anyone can achieve sub-second OBS to the browser livestreaming 
     <!-- <br /> -->
-    <!-- <a href="https://github.com/GRVYDEV/Lightspeed-Project-Lightspeed"><strong>Explore the docs »</strong></a> -->
+    <!-- <a href="https://github.com/GRVYDEV/Project-Lightspeed"><strong>Explore the docs »</strong></a> -->
     <br />
     <br />
-    <a href="https://github.com/GRVYDEV/Lightspeed-Project-Lightspeed">View Demo</a>
+    <a href="https://github.com/GRVYDEV/Project-Lightspeed">View Demo</a>
     ·
-    <a href="https://github.com/GRVYDEV/Lightspeed-Project-Lightspeed/issues">Report Bug</a>
+    <a href="https://github.com/GRVYDEV/Project-Lightspeed/issues">Report Bug</a>
     ·
-    <a href="https://github.com/GRVYDEV/Lightspeed-Project-Lightspeed/issues">Request Feature</a>
+    <a href="https://github.com/GRVYDEV/Project-Lightspeed/issues">Request Feature</a>
   </p>
 </p>
 
@@ -158,7 +158,7 @@ go build
 
 ## Roadmap
 
-See the [open issues](https://github.com/GRVYDEV/Lightspeed-Project-Lightspeed/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/GRVYDEV/Project-Lightspeed/issues) for a list of proposed features (and known issues).
 
 <!-- CONTRIBUTING -->
 
@@ -184,7 +184,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Garrett Graves - [@grvydev](https://twitter.com/grvydev)
 
-Project Link: [https://github.com/GRVYDEV/Lightspeed-Project-Lightspeed](https://github.com/GRVYDEV/Lightspeed-Project-Lightspeed)
+Project Link: [https://github.com/GRVYDEV/Project-Lightspeed](https://github.com/GRVYDEV/Project-Lightspeed)
 
 <!-- ACKNOWLEDGEMENTS -->
 
