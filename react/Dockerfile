@@ -20,5 +20,6 @@ FROM node:alpine
 WORKDIR /app/
 COPY --from=builder /app/Lightspeed-react/build ./build/
 RUN npm install -g serve
+# change port number if you want another port than 80
 EXPOSE 80
 CMD serve -s build -l 80
