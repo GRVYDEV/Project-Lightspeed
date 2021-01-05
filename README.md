@@ -198,6 +198,7 @@ View Lightspeed in your web browser by visiting http://hostname or http://your.i
 By default since we are using the FTL protocol you cannot just use a custom server. You will need to edit your `services.json` file. It can be found at:
 
 **Note**: Not all versions of Linux have access to OBS with the FTL SDK built in. If you are on Linux and you cannot stream to Lightspeed this may be the issue.
+
 Linux: `~/.config/obs-studio/plugin_config/rtmp-services/services.json`
 
 Windows: `%AppData%\obs-studio\plugin_config\rtmp-services\services.json`
