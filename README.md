@@ -188,6 +188,8 @@ View Lightspeed in your web browser by visiting http://hostname or http://your.i
 
 By default since we are using the FTL protocol you cannot just use a custom server. You will need to edit your `services.json` file. It can be found at:
 
+Linux: `~/.config/obs-studio/plugin_config/rtmp-services/services.json`
+
 Windows: `%AppData%\obs-studio\plugin_config\rtmp-services\services.json`
 
 Mac: `/Users/YOURUSERNAME/Library/Application\ Support/obs-studio/plugin_config/rtmp-services/services.json`
