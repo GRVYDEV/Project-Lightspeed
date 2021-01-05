@@ -73,8 +73,12 @@
 
 <!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
 
-Project Lightspeed is a fully self contained live streaming server. With Lightspeed you will be able to deploy your own sub-second latency live streaming platform. The Lightspeed repository contains the instructions for installing and deploying the entire application.
+Project Lightspeed is a fully self contained live streaming server. With Lightspeed you will be able to deploy your own sub-second latency live streaming platform. The Lightspeed repository contains the instructions for installing and deploying the entire application. So far, Lightspeed includes an ingest service, broadcast service via webRTC and a web application for viewing. Lightspeed is however completely modular. What this means is that you can write your own web app, ingest server or broadcast server. As of right now it is not as modular as it could be and I will be working on improving that in the future.
 
+
+### How Does It Work?
+
+Lightspeed Ingest listens on port 8084 which is the port used by the FTL protocol. Upon receiving a connection it completes the FTL handshake and negotiates a port (this is currently bugged however and defaults to 65535). Once the negotiation is done Lightspeed WebRTC listens on the negotiated port (in the future Lightspeed WebRTC will listen on the loopback interface so the ingest has more control on what packets we accept) and relays the incoming RTP packets over WebRTC. Lightspeed React communicates via websocket with Lightspeed WebRTC to exchange ICE Candidates and once a connection is established the video can be viewed.
 ### Built With
 
 - Rust
@@ -167,10 +171,14 @@ go build
 | `--addr` | A valid IP address | This is the local Ip address of your machine. It defaults to localhost but should be set to your local IP. For example 10.17.0.5 This is where the server will listen for UDP packets and where it will host the websocket endpoint for SDP negotiation |
 
 #### Lightspeed React
-First you need to configure the websocket url in `src/wsUrl.js`. If you are using an IP then it will be the public IP of your machine if you have DNS then it will be your hostname.
+
+You should then configure the websocket URL in `config.json` in the `build` directory. If you are using an IP then it will be the public IP of your machine if you have DNS then it will be your hostname.
+
+**Note**: The websocket port is hardcoded meaning that Lightspeed-webrtc will always serve it on port 8080 (this may change in the future) so for the websocket config it needs to be `ws://IP_or_Hostname:8080/websocket
 
 You can host the static site locally using `serve` which can be found [here](https://www.npmjs.com/package/serve)
 
+**Note**: your version of `serve` may require the `-p` flag instead of `-l` for the port
 ```sh
 cd Lightspeed-react
 npm run build
@@ -188,14 +196,13 @@ View Lightspeed in your web browser by visiting http://hostname or http://your.i
 
 By default since we are using the FTL protocol you cannot just use a custom server. You will need to edit your `services.json` file. It can be found at:
 
-Linux: `~/.config/obs-studio/plugin_config/rtmp-services/services.json`
-
 Windows: `%AppData%\obs-studio\plugin_config\rtmp-services\services.json`
 
 Mac: `/Users/YOURUSERNAME/Library/Application\ Support/obs-studio/plugin_config/rtmp-services/services.json`
 
-
 Paste the below into the services array and change the url to either the IP or the hostname of your Project Lightspeed server
+
+**Note**: for the url it is not prefaced by anything. For example, given an IP of 10.0.0.2 you would put `"url": "10.0.0.2"` You do not need to indicate a port since the FTL protocol always uses 8084
 ```json
 {
     "name": "Project Lightspeed",
