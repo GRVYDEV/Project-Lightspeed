@@ -35,7 +35,7 @@
     <li>
       <a href="#about-the-project">About The Project</a>
       <ul>
-        <li><a href="#how-does-it-work">How Does It Work?</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
         <li><a href="#built-with">Built With</a></li>
         <li><a href="#components">Components</a></li>
       </ul>
@@ -77,7 +77,7 @@
 Project Lightspeed is a fully self contained live streaming server. With Lightspeed you will be able to deploy your own sub-second latency live streaming platform. The Lightspeed repository contains the instructions for installing and deploying the entire application. So far, Lightspeed includes an ingest service, broadcast service via webRTC and a web application for viewing. Lightspeed is however completely modular. What this means is that you can write your own web app, ingest server or broadcast server. As of right now it is not as modular as it could be and I will be working on improving that in the future.
 
 
-### How Does It Work?
+### How It Works
 
 Lightspeed Ingest listens on port 8084 which is the port used by the FTL protocol. Upon receiving a connection it completes the FTL handshake and negotiates a port (this is currently bugged however and defaults to 65535). Once the negotiation is done Lightspeed WebRTC listens on the negotiated port (in the future Lightspeed WebRTC will listen on the loopback interface so the ingest has more control on what packets we accept) and relays the incoming RTP packets over WebRTC. Lightspeed React communicates via websocket with Lightspeed WebRTC to exchange ICE Candidates and once a connection is established the video can be viewed.
 ### Built With
