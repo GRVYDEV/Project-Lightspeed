@@ -42,6 +42,7 @@
         <li><a href="#components">Components</a></li>
       </ul>
     </li>
+    <li><a href="discord">Discord</a></li>
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
@@ -61,6 +62,7 @@
             <li><a href="#stream-key">Stream Key</a></li>
         </ul>
     </li>  
+    <li><a href="help">Help</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#bugs">Bugs</a></li>
     <li><a href="#contributing">Contributing</a></li>
@@ -93,6 +95,9 @@ Lightspeed Ingest listens on port 8084 which is the port used by the FTL protoco
 - [Lightspeed Ingest](https://github.com/GRVYDEV/Lightspeed-ingest)
 - [Lightspeed WebRTC](https://github.com/GRVYDEV/Lightspeed-webrtc)
 - [Lightspeed React](https://github.com/GRVYDEV/Lightspeed-react)
+
+## Discord
+We now have a [Discord](https://discord.gg/UpQZANPYmZ) server! This is a great way to stay up to date with the project and join in on the conversation! Come stop by!
 
 <!-- GETTING STARTED -->
 
@@ -236,6 +241,13 @@ After restarting OBS you should be able to see your service in the OBS settings 
 
 ### Stream Key
 By default the stream key is `123456789-aBcDeFgHiJkLmNoPqRsTuVwXyZ123456` This can be changed by editing line 248 in `src/connection.rs` in the Lighspeed Ingest project. In the future I will develop a system that makes it easier to reset and manage your stream key 
+
+## Help
+This project is still very much a work in progress and a lot of improvements will be made to the deployment process. If something is unclear or you are stuck there are two main ways you can get help.
+
+1. [Discord](https://discord.gg/UpQZANPYmZ) - this is the quickest and easiest way I will be able to help you through some deployment issues.
+2. [Create and Issue](https://github.com/GRVYDEV/Project-Lightspeed/issues) - this is another way you can bring attention to something that you want fixed. 
+
 <!-- ROADMAP -->
 
 ## Roadmap
