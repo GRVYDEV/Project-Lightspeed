@@ -37,7 +37,10 @@
     <li>
       <a href="#about-the-project">About The Project</a>
       <ul>
-        <li><a href="#how-it-works">How It Works</a></li>
+        <li><ul>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#diagram">Diagram</a</li>
+        </ul></li>
         <li><a href="#built-with">Built With</a></li>
         <li><a href="#components">Components</a></li>
       </ul>
@@ -84,6 +87,13 @@ Project Lightspeed is a fully self contained live streaming server. With Lightsp
 ### How It Works
 
 Lightspeed Ingest listens on port 8084 which is the port used by the FTL protocol. Upon receiving a connection it completes the FTL handshake and negotiates a port (this is currently bugged however and defaults to 65535). Once the negotiation is done Lightspeed WebRTC listens on the negotiated port (in the future Lightspeed WebRTC will listen on the loopback interface so the ingest has more control on what packets we accept) and relays the incoming RTP packets over WebRTC. Lightspeed React communicates via websocket with Lightspeed WebRTC to exchange ICE Candidates and once a connection is established the video can be viewed.
+
+### Diagram
+Here is a diagram that outlines the current implementation and the future implementation that I would like to achieve. The reason I want the packets relayed from Ingest to WebRTC on the loopback interface is so that we have more control over who can send packets. Meaning that when a DISCONNECT command is recieved we can terminate the UDP listener so that someone could not start sending packets that we do not want
+
+<img src="images/Lightspeed-Diagram.jpeg" alt="Lightspeed Diagram">
+
+
 ### Built With
 
 - Rust
