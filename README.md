@@ -22,7 +22,7 @@
     <!-- <a href="https://github.com/GRVYDEV/Project-Lightspeed"><strong>Explore the docs »</strong></a> -->
     <br />
     <br />
-    <a href="https://github.com/GRVYDEV/Project-Lightspeed">View Demo</a>
+    <a href="https://youtu.be/bOUd6asenCY">View Demo</a>
     ·
     <a href="https://github.com/GRVYDEV/Project-Lightspeed/issues">Report Bug</a>
     ·
