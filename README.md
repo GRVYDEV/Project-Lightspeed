@@ -246,7 +246,7 @@ By default the stream key is `123456789-aBcDeFgHiJkLmNoPqRsTuVwXyZ123456` This c
 This project is still very much a work in progress and a lot of improvements will be made to the deployment process. If something is unclear or you are stuck there are two main ways you can get help.
 
 1. [Discord](https://discord.gg/UpQZANPYmZ) - this is the quickest and easiest way I will be able to help you through some deployment issues.
-2. [Create and Issue](https://github.com/GRVYDEV/Project-Lightspeed/issues) - this is another way you can bring attention to something that you want fixed. 
+2. [Create an Issue](https://github.com/GRVYDEV/Project-Lightspeed/issues) - this is another way you can bring attention to something that you want fixed. 
 
 <!-- ROADMAP -->
 
