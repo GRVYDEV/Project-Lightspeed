@@ -42,7 +42,7 @@
         <li><a href="#components">Components</a></li>
       </ul>
     </li>
-    <li><a href="discord">Discord</a></li>
+    <li><a href="#discord">Discord</a></li>
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
@@ -62,7 +62,7 @@
             <li><a href="#stream-key">Stream Key</a></li>
         </ul>
     </li>  
-    <li><a href="help">Help</a></li>
+    <li><a href="#help">Help</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#bugs">Bugs</a></li>
     <li><a href="#contributing">Contributing</a></li>
