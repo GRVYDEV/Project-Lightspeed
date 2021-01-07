@@ -90,7 +90,7 @@ lightspeed_install() {
     ACME_EMAIL=${ACME_EMAIL:-$DEFAULT_ACME_EMAIL}
 
     if [ ${TLS_ON} = 'true' ]; then
-        WEBRTC_IP_ADDRESS=127.0.0.1
+        WEBRTC_IP_ADDRESS=${IP_ADDRESS}
         WEBSOCKET_URL=wss://${DOMAIN}/websocket
     else
         WEBRTC_IP_ADDRESS=${IP_ADDRESS}
@@ -221,7 +221,7 @@ server {
         try_files @@@uri @@@uri/ =404;
     }
     location /websocket {
-        proxy_pass http://127.0.0.1:8080/websocket;
+        proxy_pass http://${IP_ADDRESS}:8080/websocket;
         proxy_http_version 1.1;
         proxy_set_header Upgrade @@@http_upgrade;
         proxy_set_header Connection "Upgrade";
