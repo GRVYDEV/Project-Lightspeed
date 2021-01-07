@@ -39,7 +39,6 @@
 lightspeed_config() {
     # TLS is off by default.
     # Turn on HTTPS and proxy the websocket by setting DEFAULT_TLS_ON=true
-    ## NOTE: TLS is BROKEN at the moment, keep this as `false` at least for now:
     DEFAULT_TLS_ON=false
     # YOUR email address to register Lets Encrypt account (only when TLS_ON=true)
     DEFAULT_ACME_EMAIL=email@example.com
