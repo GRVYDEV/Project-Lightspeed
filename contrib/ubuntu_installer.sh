@@ -97,12 +97,12 @@ lightspeed_install() {
     fi
 
     export HOME=/root
+
+    ## Install packages:
     export DEBIAN_FRONTEND=noninteractive
     apt-get update
     apt-get -y install \
             golang \
-            nodejs \
-            npm \
             git \
             debian-keyring \
             debian-archive-keyring \
@@ -112,13 +112,16 @@ lightspeed_install() {
             certbot \
             python3-certbot-nginx
 
-    ## Latest rust version:
+    ## Install latest nodejs and npm:
+    curl -sL https://deb.nodesource.com/setup_15.x | bash -
+    apt-get install -y nodejs
+
+    ## Install latest rust version:
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
     source /root/.cargo/env
 
     ## Niceties:
     echo "set enable-bracketed-paste on" >> /root/.inputrc
-
 
     ## Install Project Lightspeed from source:
     # ingest:
