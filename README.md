@@ -161,7 +161,7 @@ Some of our awesome community members have written their own installers for Ligh
 
 **Note**: If you want to make a custom installer do so in the `/contrib` folder and submit a PR. Please make sure to include a README on how to use it!
 
-- [Ubuntu Installer](https://github.com/GRVYDEV/Project-Lightspeed/blob/main/contrib/ubuntu_installer/README.md)
+- [Ubuntu Installer](https://github.com/GRVYDEV/Project-Lightspeed/tree/main/contrib/ubuntu_installer)
 
 <!-- USAGE EXAMPLES -->
 
