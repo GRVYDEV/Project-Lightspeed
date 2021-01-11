@@ -192,9 +192,13 @@ go build
 
 ##### Arguments
 
-| Argument | Supported Values   | Notes                                                                                                                                                                                                                                                   |
-| :------- | :----------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--addr` | A valid IP address | This is the local Ip address of your machine. It defaults to localhost but should be set to your local IP. For example 10.17.0.5 This is where the server will listen for UDP packets and where it will host the websocket endpoint for SDP negotiation |
+|  Argument | Supported Values | Defaults | Notes             |
+| :-------- | :--------------- | :------- | :---------------- |
+| `--addr`   | A valid IP address | `localhost` | This is the local Ip address of your machine. It defaults to localhost but should be set to your local IP. For example 10.17.0.5 This is where the server will listen for UDP packets and where it will host the websocket endpoint for SDP negotiation|
+|  `--ip`    | A valid IP address | `none` | Sets the public IP address for WebRTC to use. This is especially useful in the context of Docker|
+| `--ports`  | A valid UDP port range | `20000-20500` | This sets the UDP ports that WebRTC will use to connect with the client |
+| `--ws-port` | A valid port number | `8080` | This is the port on which the websocket will be hosted. If you change this value make sure that is reflected in the URL used by the react client |
+| `--rtp-port` | A valid port number | `65535` | This is the port on which the WebRTC service will listen for RTP packets. Ensure this is the same port that Lightspeed Ingest is negotiating with the client |
 
 #### Lightspeed React
 
