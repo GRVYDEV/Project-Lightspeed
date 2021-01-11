@@ -1,44 +1,16 @@
 #!/bin/bash -ex
 
-## Note: before running this, you may wish to edit the lightspeed_config
-## function below (review all of the variables that start with the `DEFAULT_`
-## prefix). You may also set variables in your shell environment to override the
-## default values (same names, but without the `DEFAULT_` prefix).
+## This is a bash script to install GRVYDEV/Project-Lightspeed on Ubuntu 20.04
+## See the README for details:
+## https://github.com/GRVYDEV/Project-Lightspeed/tree/main/contrib/ubuntu_installer
 
-## This is a bash script to install GRVYDEV/Project-Lightspeed on Ubuntu 20.04,
-## from source code. In addition, the nginx webserver and certbot will be
-## installed (Lets Encrypt TLS certificate will automatically be created if you
-## set TLS_ON=true and set DOMAIN). This script should be run as root, or
-## invoked from cloud-init. (On DigitalOcean, create a droplet and copy-paste
-## this *entire file* into the droplet `User Data` text area, and edit the
-## DEFAULT variables below. The droplet will run this script automatically when
-## it is created.)
 
-## If you are you using cloud-init, you can watch the output of this script, run:
-##   tail -f /var/log/cloud-init-output.log
-## Or you can wait for it to finish by running:
-##   cloud-init status -w
-## (this should eventually say `status: done` and not `status: error`)
-
-## Once the ingest service has started, you can view the logs to find your stream key:
-##   journalctl --unit lightspeed-ingest.service --no-pager
-
-## If you set DEFAULT_TLS_ON=true (or TLS_ON=true from the environment), nginx
-## will be configured for TLS, and automatically redirect http traffic to https.
-## The websocket will be proxied as a secure websocket (wss:// instead of ws://)
-## This requires a proper DNS entry for your DOMAIN. If you know your IP address
-## ahead of time, create the DNS entry first, before running this script. If you
-## are running this on DigitalOcean via cloud-init, you won't know the IP
-## address until after you create the droplet, so you must act quickly:
-## immediately after you create the droplet, find the IP address, and create the
-## DNS entry for the chosen DEFAULT_DOMAIN. certbot runs at the very end of this
-## script, so it will not need this for several minutes, so you have a bit of
-## time to set the DNS entry before it needs it.
-
-## EDIT THIS CONFIG HERE:
 lightspeed_config() {
+    ## You can edit these defaults, or you can override them in your environment.
+    ## Environment vars use the same names except without the DEFAULT_ prefix.
+
     # TLS is off by default.
-    # Turn on HTTPS and proxy the websocket by setting DEFAULT_TLS_ON=true
+    # Turn on HTTPS and proxy the websocket by setting TLS_ON=true
     DEFAULT_TLS_ON=false
     # YOUR email address to register Lets Encrypt account (only when TLS_ON=true)
     DEFAULT_ACME_EMAIL=email@example.com
@@ -46,10 +18,9 @@ lightspeed_config() {
     # Domain name for your stream website (only when TLS_ON=true):
     DEFAULT_DOMAIN=stream.example.com
 
-    # Automatically get the public IP address of DigitalOcean droplet via metadata URL:
-    # (You might need a different command if you're not using DigitalOcean)
-    # Alternatively, you can set DEFAULT_IP_ADDRESS=x.x.x.x if you know it already:
-    DEFAULT_IP_ADDRESS=$(curl -s http://169.254.169.254/metadata/v1/interfaces/public/0/ipv4/address)
+    # Try to automatically find public IP address
+    # Or you can just set IP_ADDRESS=x.x.x.x
+    DEFAULT_IP_ADDRESS=$(curl ifconfig.co/)
 
     # Git repositories:
     DEFAULT_INGEST_REPO=https://github.com/GRVYDEV/Lightspeed-ingest.git
@@ -60,19 +31,10 @@ lightspeed_config() {
     DEFAULT_INGEST_GIT_REF=master
     DEFAULT_WEBRTC_GIT_REF=main
     DEFAULT_REACT_GIT_REF=master
+
+    # Directory to clone git repositories
+    DEFAULT_GIT_ROOT=/root/git
 }
-
-
-## END CONFIG
-## You shouldn't need to edit anything below this line.
-##
-##
-##
-##
-##
-##
-##
-##
 
 lightspeed_install() {
     ## Load environment variables that possibly override default values:
@@ -87,6 +49,7 @@ lightspeed_install() {
     WEBRTC_GIT_REF=${WEBRTC_GIT_REF:-$DEFAULT_WEBRTC_GIT_REF}
     REACT_GIT_REF=${REACT_GIT_REF:-$DEFAULT_REACT_GIT_REF}
     ACME_EMAIL=${ACME_EMAIL:-$DEFAULT_ACME_EMAIL}
+    GIT_ROOT=${GIT_ROOT:-$DEFAULT_GIT_ROOT}
 
     if [ ${TLS_ON} = 'true' ]; then
         WEBRTC_IP_ADDRESS=${IP_ADDRESS}
@@ -125,8 +88,8 @@ lightspeed_install() {
 
     ## Install Project Lightspeed from source:
     # ingest:
-    mkdir -p /root/git
-    cd /root/git
+    mkdir -p ${GIT_ROOT}
+    cd ${GIT_ROOT}
     git clone ${INGEST_REPO} Lightspeed-ingest
     cd Lightspeed-ingest
     git checkout ${INGEST_GIT_REF}
@@ -134,7 +97,7 @@ lightspeed_install() {
     install target/release/lightspeed-ingest /usr/local/bin/lightspeed-ingest
 
     # webrtc:
-    cd /root/git
+    cd ${GIT_ROOT}
     git clone ${WEBRTC_REPO} Lightspeed-webrtc
     cd Lightspeed-webrtc
     git checkout ${WEBRTC_GIT_REF}
@@ -142,7 +105,7 @@ lightspeed_install() {
     install lightspeed-webrtc /usr/local/bin/lightspeed-webrtc
 
     # react:
-    cd /root/git
+    cd ${GIT_ROOT}
     git clone ${REACT_REPO} Lightspeed-react
     cd Lightspeed-react
     git checkout ${REACT_GIT_REF}
