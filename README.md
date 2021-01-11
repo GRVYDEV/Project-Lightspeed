@@ -57,6 +57,7 @@
                 <li><a href="#lightspeed-react">Lightspeed React</a></li>
             </ul>
         </li>
+        <li><a href="#community-installation">Community Installation</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
@@ -154,6 +155,13 @@ git clone https://github.com/GRVYDEV/Lightspeed-react.git
 cd Lightspeed-react
 npm install
 ```
+
+### Community Installation
+Some of our awesome community members have written their own installers for Lightspeed. Here are links to those!
+
+**Note**: If you want to make a custom installer do so in the `/contrib` folder and submit a PR. Please make sure to include a README on how to use it!
+
+- [Ubuntu Installer](https://github.com/GRVYDEV/Project-Lightspeed/blob/main/contrib/ubuntu_installer/README.md)
 
 <!-- USAGE EXAMPLES -->
 
