@@ -4,7 +4,7 @@ services:
     # ingest - listening on port 8084
     lightspeed-ingest:     
         restart: on-failure
-        image: projectlightspeed/ingest:version-0.1.1
+        image: projectlightspeed/ingest:latest
         network_mode: host
         ports:
             - "8084:8084"
@@ -12,7 +12,7 @@ services:
     # react - serves on port 80, needs the wsUrl which is public ip:8080
     lightspeed-react:    
         restart: on-failure
-        image: projectlightspeed/react:version-0.1.0
+        image: projectlightspeed/react:latest
         network_mode: host
         ports:
             - "80:80"
@@ -22,8 +22,9 @@ services:
     # webrtc, defaults to localhost:8080. 
     lightspeed-webrtc:     
         restart: on-failure
-        image: projectlightspeed/webrtc:version-0.1.0
+        image: projectlightspeed/webrtc:latest
         network_mode: host
+        # you can add additional arugments here for advanced WebRTC configuration
         command: ["lightspeed-webrtc", "--addr=localhost"]
         ports:
             - "8080:8080"
