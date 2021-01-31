@@ -1,27 +1,36 @@
 version: '3'
 
 services:
-    # ingest - listening on port 8084
-    lightspeed-ingest:     
-        restart: on-failure
-        build: ingest/
-        network_mode: host
-        ports:
-            - "8084:8084"
-    
-    # react - serves on port 80, needs the wsUrl which is public ip:8080
-    lightspeed-react:    
-        restart: on-failure
-        build: react/
-        network_mode: host
-        ports:
-            - "80:80"
+  lightspeed-ingest:     
+    restart: on-failure
+    build: 
+      context: ../Lightspeed-ingest 
+      dockerfile: Dockerfile
+    image: lightspeed-ingest
+    env_file: '.env'
+    ports:
+      - "${INGEST_PORT}:8084"
+  
+  lightspeed-react:    
+    restart: on-failure
+    image: lightspeed-react
+    build:
+      context: ../Lightspeed-react
+      dockerfile: Dockerfile
+    env_file: '.env'
+    ports:
+      - "${WEB_PORT}:80"
 
-    # webrtc, defaults to localhost:8080. 
-    lightspeed-webrtc:     
-        restart: on-failure
-        build: webrtc/
-        network_mode: host
-        ports:
-            - "8080:8080"
-            - "65535:65535/udp"
+  lightspeed-webrtc:     
+    restart: on-failure
+    build: 
+      context: ../Lightspeed-webrtc
+      dockerfile: Dockerfile
+    image: lightspeed-webrtc
+    env_file: '.env'
+    command: ["lightspeed-webrtc", "--addr=0.0.0.0", "--ip=${WEBSOCKET_HOST}", "--ports=20000-20500", "run"]
+    ports:
+      - ${WEBSOCKET_PORT}:8080 # WebRTC
+      - 65535:65535/udp # RTP
+      - 20000-20500:20000-20500 # WebRTC PeerConnection
+      - 20000-20500:20000-20500/udp # WebRTC PeerConnection UDP
