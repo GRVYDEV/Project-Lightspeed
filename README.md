@@ -19,7 +19,7 @@
     <!-- <a href="https://github.com/GRVYDEV/Project-Lightspeed"><strong>Explore the docs »</strong></a> -->
     <br />
     <br />
-    <a href="https://github.com/GRVYDEV/Project-Lightspeed">View Demo</a>
+    <a href="https://youtu.be/Dzin4_A8RDs">View Demo</a>
     ·
     <a href="https://github.com/GRVYDEV/Project-Lightspeed/issues">Report a Bug</a>
     ·
@@ -33,10 +33,15 @@
     <li>
       <a href="#about-the-project">About The Project</a>
       <ul>
+        <li><ul>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#diagram">Diagram</a</li>
+        </ul></li>
         <li><a href="#built-with">Built With</a></li>
         <li><a href="#components">Components</a></li>
       </ul>
     </li>
+    <li><a href="#discord">Discord</a></li>
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
@@ -49,10 +54,16 @@
                 <li><a href="#lightspeed-react">Lightspeed React</a></li>
             </ul>
         </li>
+        <li><a href="#community-installation">Community Installation</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#streaming-from-obs">Streaming From OBS</a></li>
+    <li><a href="#streaming-from-obs">Streaming From OBS</a>
+        <ul>
+            <li><a href="#stream-key">Stream Key</a></li>
+        </ul>
+    </li>  
+    <li><a href="#help">Help</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#bugs">Bugs</a></li>
     <li><a href="#contributing">Contributing</a></li>
@@ -68,9 +79,20 @@
 
 <!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
 
-This is Project Lightspeed. Project Lightspeed is a fully self-contained live streaming server. With this you will 
-be able to deploy your own sub-second latency live streaming platform. This repository contains the instructions for 
-installing and deploying the entire application.
+Project Lightspeed is a fully self-contained live streaming server. With Lightspeed you will be able to deploy your 
+own sub-second latency live streaming platform. The Lightspeed repository contains the instructions for installing 
+and deploying the entire application. So far, Lightspeed includes an ingest service, broadcast service via webRTC 
+and a web application for viewing. Lightspeed is however completely modular. What this means is that you can write 
+your own web app, ingest server or broadcast server. 
+
+### How It Works
+
+Lightspeed Ingest listens on port 8084 which is the port used by the FTL protocol. Upon receiving a connection it completes the FTL handshake and negotiates a port (this is currently bugged however and defaults to 65535). Once the negotiation is done Lightspeed WebRTC listens on the negotiated port (in the future Lightspeed WebRTC will listen on the loopback interface so the ingest has more control on what packets we accept) and relays the incoming RTP packets over WebRTC. Lightspeed React communicates via websocket with Lightspeed WebRTC to exchange ICE Candidates and once a connection is established the video can be viewed.
+
+### Diagram
+Here is a diagram that outlines the current implementation and the future implementation that I would like to achieve. The reason I want the packets relayed from Ingest to WebRTC on the loopback interface is so that we have more control over who can send packets. Meaning that when a DISCONNECT command is recieved we can terminate the UDP listener so that someone could not start sending packets that we do not want
+
+<img src="images/Lightspeed-Diagram.jpeg" alt="Lightspeed Diagram">
 
 ### Built With
 
@@ -84,6 +106,9 @@ installing and deploying the entire application.
 - [Lightspeed WebRTC](https://github.com/GRVYDEV/Lightspeed-webrtc)
 - [Lightspeed React](https://github.com/GRVYDEV/Lightspeed-react)
 
+## Discord
+We now have a [Discord](https://discord.gg/UpQZANPYmZ) server! This is a great way to stay up to date with the project and join in on the conversation! Come stop by!
+
 <!-- GETTING STARTED -->
 
 ## Getting Started
@@ -93,7 +118,7 @@ each repo however I will include them here for the sake of simplicity.
 
 ### Prerequisites
 
-In order to run this [Golang](https://golang.org/doc/install), [Rust](https://www.rust-lang.org/tools/install), and [npm](https://www.npmjs.com/get-npm) are required. Additionally the Rust repo requires a C compiler. If you get a `linker cc not found` error then you need to install a C compiler.
+In order to run Lightspeed, [Golang](https://golang.org/doc/install), [Rust](https://www.rust-lang.org/tools/install), and [npm](https://www.npmjs.com/get-npm) are required. Additionally the Rust repo requires a C compiler. If you get a `linker cc not found` error then you need to install a C compiler.
 
 ### Installation
 
@@ -131,6 +156,13 @@ cd Lightspeed-react
 npm install
 ```
 
+### Community Installation
+Some of our awesome community members have written their own installers for Lightspeed. Here are links to those!
+
+**Note**: If you want to make a custom installer do so in the `/contrib` folder and submit a PR. Please make sure to include a README on how to use it!
+
+- [Ubuntu Installer](https://github.com/GRVYDEV/Project-Lightspeed/tree/main/contrib/ubuntu_installer)
+
 <!-- USAGE EXAMPLES -->
 
 ## Usage
@@ -160,26 +192,35 @@ go build
 
 ##### Arguments
 
-| Argument | Supported Values   | Notes                                                                                                                                                                                                                                                   |
-| :------- | :----------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--addr` | A valid IP address | This is the local Ip address of your machine. It defaults to localhost but 
-should be set to your local IP. For example 10.17.0.5 This is where the server will listen for UDP packets and 
-where it will host the websocket endpoint for SDP negotiation |
+|  Argument | Supported Values | Defaults | Notes             |
+| :-------- | :--------------- | :------- | :---------------- |
+| `--addr`   | A valid IP address | `localhost` | This is the local Ip address of your machine. It defaults to localhost but should be set to your local IP. For example 10.17.0.5 This is where the server will listen for UDP packets and where it will host the websocket endpoint for SDP negotiation|
+|  `--ip`    | A valid IP address | `none` | Sets the public IP address for WebRTC to use. This is especially useful in the context of Docker|
+| `--ports`  | A valid UDP port range | `20000-20500` | This sets the UDP ports that WebRTC will use to connect with the client |
+| `--ws-port` | A valid port number | `8080` | This is the port on which the websocket will be hosted. If you change this value make sure that is reflected in the URL used by the react client |
+| `--rtp-port` | A valid port number | `65535` | This is the port on which the WebRTC service will listen for RTP packets. Ensure this is the same port that Lightspeed Ingest is negotiating with the client |
 
 #### Lightspeed React
-First you need to configure the websocket url in `src/wsUrl.js`. If you are using an IP then it will be the 
+
+You should then configure the websocket URL in `config.json` in the `build` directory. If you are using an IP then it will be the 
 public IP of your machine if you have DNS then it will be your hostname.
+
+**Note**: The websocket port is hardcoded meaning that Lightspeed-webrtc will always serve it on port 8080 (this may change in the future) 
+so for the websocket config it needs to be `ws://IP_or_Hostname:8080/websocket
 
 You can host the static site locally using `serve` which can be found [here](https://www.npmjs.com/package/serve)
 
+**Note**: your version of `serve` may require the `-p` flag instead of `-l` for the port
 ```sh
 cd Lightspeed-react
-npm build
+npm run build
 serve -s build -l 80
 ```
 
-This will serve the build folder on port 80 of your machine meaning it can be retreived via a browser by either 
-going to your machines public IP or hostname
+The above will serve the build folder on port 80.
+
+View Lightspeed in your web browser by visiting http://hostname or http://your.ip.address.here
+
 
 ---
 
@@ -210,11 +251,9 @@ all containers.
 Use `docker-compose up -d` to start it detached and have it continue to run in the background. Use `docker ps` to
 verify uptime, port forwarding, etc. 
 
-
 ### Configure containers
 Containers are currently configured with a random stream key on boot. Other variables are set via Environment
 Variables, see `.env` file. This is where you need to setup your IP/Hostname.
-
 
 ---
 
@@ -225,7 +264,11 @@ your `services.json` file. It can be found at:
 - Windows: `%AppData%\obs-studio\plugin_config\rtmp-services\services.json` 
 - OSX: `/Users/YOURUSERNAME/Library/Application\ Support/obs-studio/plugin_config/rtmp-services/services.json`
 
-Paste this into the services array and change the url to either the IP or the hostname of your Project Lightspeed server
+**Note**: Not all versions of Linux have access to OBS with the FTL SDK built in. If you are on Linux and you cannot stream to Lightspeed this may be the issue.
+
+Paste the below into the services array and change the url to either the IP or the hostname of your Project Lightspeed server
+
+**Note**: for the url it is not prefaced by anything. For example, given an IP of 10.0.0.2 you would put `"url": "10.0.0.2"` You do not need to indicate a port since the FTL protocol always uses 8084
 ```json
 {
     "name": "Project Lightspeed",
@@ -253,6 +296,18 @@ After restarting OBS you should be able to see your service in the OBS settings 
 (Special Thanks to [Glimesh](https://github.com/Glimesh) for these instructions)
 
 ---
+
+### Stream Key
+We are no longer using a default streamkey! If you are still using one please pull from master on the Lightspeed-ingest repository. Now, by default on first time startup a new streamkey will be generated and output to the terminal for you. In order to regenerate this key simply delete the file it generates called `hash`. In a Docker context we will work to make the key reset process as easy as possible. Simply copy the key output in the terminal to OBS and you are all set! This key WILL NOT change unless the `hash` file is deleted.
+
+<img src="images/streamkey-example.png" alt="Streamkey example">
+
+## Help
+This project is still very much a work in progress and a lot of improvements will be made to the deployment process. If something is unclear or you are stuck there are two main ways you can get help.
+
+1. [Discord](https://discord.gg/UpQZANPYmZ) - this is the quickest and easiest way I will be able to help you through some deployment issues.
+2. [Create an Issue](https://github.com/GRVYDEV/Project-Lightspeed/issues) - this is another way you can bring attention to something that you want fixed. 
+
 <!-- ROADMAP -->
 
 ## Roadmap
@@ -277,9 +332,9 @@ Contributions are what make the open source community such an amazing place to b
 Any contributions you make are **greatly appreciated**. 
 
 1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
+2. Create your Feature Branch: ``git checkout -b feature/AmazingFeature``
+3. Commit your Changes: ``git commit -m 'Add some AmazingFeature'``
+4. Push to the Branch: ``git push origin feature/AmazingFeature``
 5. Open a Pull Request
 
 <!-- LICENSE -->
