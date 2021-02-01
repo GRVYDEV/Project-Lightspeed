@@ -225,39 +225,53 @@ View Lightspeed in your web browser by visiting http://hostname or http://your.i
 ---
 
 <!-- DOCKER -->
-# Docker / Compose
-Install docker and docker-compose (https://docs.docker.com/compose/install/)
+## Docker / Compose
 
-```
-# Install Docker
-curl -fsSL get.docker.com | sh 
-
-# Install docker-compose
-curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/bin/docker-compose
-chmod +x /usr/bin/docker-compose
-```
+Install [Docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/install/).
 
 ### Build
 
-Until docker images are published to Docker Hub you will need to build each container image. In this directories 
-parent folder clone the React, Ingest, and WebRTC repo's. See the `build: context:` in the `docker-compose.yaml` if 
-you wish to specify different paths.
+Create a parent folder where you will clone the [React](https://github.com/GRVYDEV/Lightspeed-react),
+[WebRTC](https://github.com/GRVYDEV/Lightspeed-webrtc), and [Ingest](https://github.com/GRVYDEV/Lightspeed-ingest) 
+Lightspeed repositories. See the `build: context:` in the `docker-compose.yaml` which by default expects each repo to 
+be one directory level up.
+
+```
+./Lightspeed  # parent folder 
+   Project-Lightspeed/  # you are here
+   Lightspeed-react/
+   Lightspeed-ingest/
+   Lightspeed-webrtc/
+ 
+```
+
+Edit the `.env` file and add your IP/Hostname to `WEBSOCKET_HOST` variable.
+
+Run `docker-compose build` to build all of the container images. If you change the source code you will need to rebuild. 
+You can run rebuild an individual container via `docker-compose build lightspeed-react`. 
 
 ### Development
-Use `docker-compose up` ensures the containers are checked for changes and rebuilt if needed. You will see logs for 
-all containers.
 
-### Run as daemon/detached
-Use `docker-compose up -d` to start it detached and have it continue to run in the background. Use `docker ps` to
-verify uptime, port forwarding, etc. 
+Use `docker-compose up` to start all containers at once and monitor the logs. When you are happy it is working you can 
+move to running detached.
+
+### Run Detached (background)
+
+Use `docker-compose up -d` to start all containers detached to have them run in the background. 
+
+Use `docker ps` to verify uptime, port forwarding, etc. 
+
+You can also use `docker-compose logs -f` to follow the logs of all the containers, and press `CTRL` + `C` to stop 
+following but leave the containers running.
 
 ### Configure containers
+
 Containers are currently configured with a random stream key on boot. Other variables are set via Environment
 Variables, see `.env` file. This is where you need to setup your IP/Hostname.
 
 ---
 
-# Streaming From OBS
+## Streaming From OBS
 
 By default, since we are using the FTL protocol, you cannot just use a Custom server. You will need to edit 
 your `services.json` file. It can be found at:
@@ -298,12 +312,18 @@ After restarting OBS you should be able to see your service in the OBS settings 
 ---
 
 ### Stream Key
-We are no longer using a default streamkey! If you are still using one please pull from master on the Lightspeed-ingest repository. Now, by default on first time startup a new streamkey will be generated and output to the terminal for you. In order to regenerate this key simply delete the file it generates called `hash`. In a Docker context we will work to make the key reset process as easy as possible. Simply copy the key output in the terminal to OBS and you are all set! This key WILL NOT change unless the `hash` file is deleted.
+
+We are no longer using a default streamkey! If you are still using one please pull from master on the Lightspeed-ingest 
+repository. Now, by default on first time startup a new streamkey will be generated and output to the terminal for you. 
+In order to regenerate this key simply delete the file it generates called `hash`. In a Docker context we will work to 
+make the key reset process as easy as possible. Simply copy the key output in the terminal to OBS and you are all set! 
+This key WILL NOT change unless the `hash` file is deleted.
 
 <img src="images/streamkey-example.png" alt="Streamkey example">
 
 ## Help
-This project is still very much a work in progress and a lot of improvements will be made to the deployment process. If something is unclear or you are stuck there are two main ways you can get help.
+This project is still very much a work in progress and a lot of improvements will be made to the deployment process. 
+If something is unclear or you are stuck there are two main ways you can get help.
 
 1. [Discord](https://discord.gg/UpQZANPYmZ) - this is the quickest and easiest way I will be able to help you through some deployment issues.
 2. [Create an Issue](https://github.com/GRVYDEV/Project-Lightspeed/issues) - this is another way you can bring attention to something that you want fixed. 

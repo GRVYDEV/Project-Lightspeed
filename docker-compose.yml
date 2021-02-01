@@ -32,5 +32,5 @@ services:
     ports:
       - ${WEBSOCKET_PORT}:8080 # WebRTC
       - 65535:65535/udp # RTP
-      - 20000-20500:20000-20500 # WebRTC PeerConnection
+      - 20000-20500:20000-20500/tcp # WebRTC PeerConnection
       - 20000-20500:20000-20500/udp # WebRTC PeerConnection UDP
