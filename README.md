@@ -229,26 +229,8 @@ View Lightspeed in your web browser by visiting http://hostname or http://your.i
 
 Install [Docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/install/).
 
-### Build
-
-Create a parent folder where you will clone the [React](https://github.com/GRVYDEV/Lightspeed-react),
-[WebRTC](https://github.com/GRVYDEV/Lightspeed-webrtc), and [Ingest](https://github.com/GRVYDEV/Lightspeed-ingest) 
-Lightspeed repositories. See the `build: context:` in the `docker-compose.yaml` which by default expects each repo to 
-be one directory level up.
-
-```
-./Lightspeed  # parent folder 
-   Project-Lightspeed/  # you are here
-   Lightspeed-react/
-   Lightspeed-ingest/
-   Lightspeed-webrtc/
- 
-```
-
-Edit the `.env` file and add your IP/Hostname to `WEBSOCKET_HOST` variable.
-
-Run `docker-compose build` to build all of the container images. If you change the source code you will need to rebuild. 
-You can run rebuild an individual container via `docker-compose build lightspeed-react`. 
+See the `.env` file to configure per your needs. At minimum, you need to set `WEBSOCKET_HOST`. The stream key will be 
+generated automatically on boot, and change each restart, unless you set a static one.
 
 ### Development
 
@@ -264,10 +246,30 @@ Use `docker ps` to verify uptime, port forwarding, etc.
 You can also use `docker-compose logs -f` to follow the logs of all the containers, and press `CTRL` + `C` to stop 
 following but leave the containers running.
 
-### Configure containers
+### Build Images manually
 
-Containers are currently configured with a random stream key on boot. Other variables are set via Environment
-Variables, see `.env` file. This is where you need to setup your IP/Hostname.
+For development purposes you can choose to build the containers locally instead of Docker Hub. Uncomment the `build:` 
+in the docker-compose.yaml. Configure the `context:` to be the path where you have cloned the respective respository 
+([React](https://github.com/GRVYDEV/Lightspeed-react), [WebRTC](https://github.com/GRVYDEV/Lightspeed-webrtc), or 
+[Ingest](https://github.com/GRVYDEV/Lightspeed-ingest)). For example, create a base folder and clone each repostiory 
+there as such:
+
+```
+mkdir Lightspeed
+git clone ...
+git clone ...
+git clone ...
+---
+./Lightspeed  # base folder 
+   Project-Lightspeed/  # you are here
+   Lightspeed-react/
+   Lightspeed-ingest/
+   Lightspeed-webrtc/
+ 
+```
+
+Run `docker-compose build` to build the local container images. If you change the source code you will need to run again.
+You can run rebuild an individual container via `docker-compose build lightspeed-react`.
 
 ---
 
