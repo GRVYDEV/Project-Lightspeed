@@ -45,7 +45,6 @@
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
-        <li><a href="#docker">Docker / Compose</a></li>
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a>
             <ul>
@@ -54,6 +53,7 @@
                 <li><a href="#lightspeed-react">Lightspeed React</a></li>
             </ul>
         </li>
+        <li><a href="#docker">Docker / Compose</a></li>
         <li><a href="#community-installation">Community Installation</a></li>
       </ul>
     </li>
