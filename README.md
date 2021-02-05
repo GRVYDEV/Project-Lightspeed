@@ -225,7 +225,7 @@ View Lightspeed in your web browser by visiting http://hostname or http://your.i
 ---
 
 <!-- DOCKER -->
-## Docker / Compose
+## Docker
 
 Install [Docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/install/).
 
