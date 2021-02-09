@@ -36,10 +36,10 @@ services:
 #      context: ../Lightspeed-webrtc
 #      dockerfile: Dockerfile
     env_file: '.env'
-    command: ["lightspeed-webrtc", "--addr=0.0.0.0", "--ip=${WEBSOCKET_HOST}", "--ports=20000-20500", "run"]
+    command: ["lightspeed-webrtc", "--addr=0.0.0.0", "--ip=${WEBSOCKET_HOST}", "--ports=20000-20100", "run"]
     restart: on-failure
     ports:
       - ${WEBSOCKET_PORT}:8080 # WebRTC
       - 65535:65535/udp # RTP
-      - 20000-20500:20000-20500/tcp # WebRTC PeerConnection
-      - 20000-20500:20000-20500/udp # WebRTC PeerConnection UDP
+      - 20000-20100:20000-20100/tcp # WebRTC PeerConnection
+      - 20000-20100:20000-20100/udp # WebRTC PeerConnection UDP
