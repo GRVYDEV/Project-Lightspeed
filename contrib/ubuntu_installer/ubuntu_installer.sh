@@ -73,7 +73,9 @@ lightspeed_install() {
             curl \
             nginx \
             certbot \
-            python3-certbot-nginx
+            python3-certbot-nginx \
+            gcc \
+            libc6-dev
 
     ## Install latest nodejs and npm:
     curl -sL https://deb.nodesource.com/setup_15.x | bash -
