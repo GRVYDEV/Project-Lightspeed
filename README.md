@@ -206,7 +206,7 @@ You should then configure the websocket URL in `config.json` in the `build` dire
 public IP of your machine if you have DNS then it will be your hostname.
 
 **Note**: The websocket port is hardcoded meaning that Lightspeed-webrtc will always serve it on port 8080 (this may change in the future) 
-so for the websocket config it needs to be `ws://IP_or_Hostname:8080/websocket
+so for the websocket config it needs to be `ws://IP_or_Hostname:8080/websocket`
 
 You can host the static site locally using `serve` which can be found [here](https://www.npmjs.com/package/serve)
 
