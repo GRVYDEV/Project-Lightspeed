@@ -279,6 +279,7 @@ By default, since we are using the FTL protocol, you cannot just use a Custom se
 your `services.json` file. It can be found at:
 - Windows: `%AppData%\obs-studio\plugin_config\rtmp-services\services.json` 
 - OSX: `/Users/YOURUSERNAME/Library/Application\ Support/obs-studio/plugin_config/rtmp-services/services.json`
+- Linux: `/home/username//.config/obs-studio/plugin_config/rtmp-services/services.json` or `/usr/share/obs/obs-plugins/rtmp-services/services.json`
 
 **Note**: Not all versions of Linux have access to OBS with the FTL SDK built in. If you are on Linux and you cannot stream to Lightspeed this may be the issue.
 
