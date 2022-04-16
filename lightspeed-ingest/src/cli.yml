@@ -1,0 +1,29 @@
+name: Lightspeed Ingest
+version: "0.1.0"
+author: "Garrett Graves <gravesg57@gmail.com>"
+about: "A FTL handshake server written in Rust"
+args:
+    - address:
+        short: a
+        long: address
+        env: LS_INGEST_ADDR
+        value_name: HOSTNAME_OR_IP
+        help: Specify which address to bind to (defaults to 0.0.0.0)
+        takes_value: true
+
+    - stream-key:
+        short: k
+        long: stream-key
+        env: STREAM_KEY
+        value_name: STREAM_KEY
+        help: Optionally set a static Stream Key (will be prefixed with "77-")
+        takes_value: true
+    
+    # Optional path to the log file, creates a simplelog::WriteLogger
+    - log-file:
+        short: l
+        long: log-file
+        env: LS_LOG
+        value_name: LOG_FILE_PATH
+        help: Optionally specify where to store logs
+        takes_value: true
