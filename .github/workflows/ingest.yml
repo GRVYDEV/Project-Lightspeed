@@ -9,8 +9,6 @@ jobs:
     defaults:
       run:
         working-directory: ./lightspeed-ingest
-      uses:
-        working-directory: ./lightspeed-ingest
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1
@@ -25,14 +23,15 @@ jobs:
       - name: Check
         uses: actions-rs/cargo@v1
         with:
+	  args: --manifest-path ./lightspeed-ingest/Cargo.toml
           command: check
       - name: Fmt
         uses: actions-rs/cargo@v1
         with:
           command: fmt
-          args: --all -- --check
+          args: --all --manifest-path ./lightspeed-ingest/Cargo.toml  -- --check
       - name: Clippy
         uses: actions-rs/cargo@v1
         with:
           command: clippy
-          args: -- -D warnings
+          args: --manifest-path ./lightspeed-ingest/Cargo.toml -- -D warnings
