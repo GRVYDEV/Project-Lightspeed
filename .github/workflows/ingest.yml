@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./lightspeed-ingest
+        working-directory: ./ingest
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1
@@ -23,15 +23,15 @@ jobs:
       - name: Check
         uses: actions-rs/cargo@v1
         with:
-          args: --manifest-path ./lightspeed-ingest/Cargo.toml
+          args: --manifest-path ./ingest/Cargo.toml
           command: check
       - name: Fmt
         uses: actions-rs/cargo@v1
         with:
           command: fmt
-          args: --all --manifest-path ./lightspeed-ingest/Cargo.toml  -- --check
+          args: --all --manifest-path ./ingest/Cargo.toml  -- --check
       - name: Clippy
         uses: actions-rs/cargo@v1
         with:
           command: clippy
-          args: --manifest-path ./lightspeed-ingest/Cargo.toml -- -D warnings -A clippy::needless_return -A clippy::upper-case-acronyms 
+          args: --manifest-path ./ingest/Cargo.toml -- -D warnings -A clippy::needless_return -A clippy::upper-case-acronyms 
