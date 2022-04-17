@@ -4,7 +4,7 @@ services:
   lightspeed-ingest:
     container_name: lightspeed-ingest
     image: projectlightspeed/ingest
-#    #Uncomment below to build locally
+    #Uncomment below to build locally
 #    image: lightspeed-ingest
 #    build:
 #      context: ./ingest
@@ -17,7 +17,7 @@ services:
   lightspeed-react:
     container_name: lightspeed-react
     image: projectlightspeed/react
-#    #Uncomment below to build locally
+    #Uncomment below to build locally
 #    image: lightspeed-react
 #    build:
 #      context: ./react
@@ -30,7 +30,7 @@ services:
   lightspeed-webrtc:
     container_name: lightspeed-webrtc
     image: projectlightspeed/webrtc
-#    #Uncomment below to build locally
+    #Uncomment below to build locally
 #    image: lightspeed-webrtc
 #    build:
 #      context: ./webrtc
