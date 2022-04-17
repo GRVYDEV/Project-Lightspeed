@@ -23,7 +23,7 @@ jobs:
       - name: Check
         uses: actions-rs/cargo@v1
         with:
-	  args: --manifest-path ./lightspeed-ingest/Cargo.toml
+          args: --manifest-path ./lightspeed-ingest/Cargo.toml
           command: check
       - name: Fmt
         uses: actions-rs/cargo@v1
