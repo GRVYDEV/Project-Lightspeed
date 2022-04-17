@@ -1,0 +1,41 @@
+name: Ingest Lint 
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+    
+jobs:
+  lint:
+    name: CI
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./ingest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+      - name: Add clippy 
+        run: rustup component add clippy
+      - name: Add rustfmt
+        run: rustup component add rustfmt
+      - name: Check
+        uses: actions-rs/cargo@v1
+        with:
+          args: --manifest-path ./ingest/Cargo.toml
+          command: check
+      - name: Fmt
+        uses: actions-rs/cargo@v1
+        with:
+          command: fmt
+          args: --all --manifest-path ./ingest/Cargo.toml  -- --check
+      - name: Clippy
+        uses: actions-rs/cargo@v1
+        with:
+          command: clippy
+          args: --manifest-path ./ingest/Cargo.toml -- -D warnings -A clippy::needless_return -A clippy::upper-case-acronyms 
