@@ -34,4 +34,4 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: clippy
-          args: --manifest-path ./lightspeed-ingest/Cargo.toml -- -D warnings
+          args: --manifest-path ./lightspeed-ingest/Cargo.toml -- -D warnings -A clippy::needless_return -A clippy::upper-case-acronyms 

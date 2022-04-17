@@ -33,13 +33,13 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         None => default_bind_address,
     };
 
-    let mut loggers: Vec<Box<dyn SharedLogger>> = vec![];
-    loggers.push(
-        match TermLogger::new(LevelFilter::Info, Config::default(), TerminalMode::Mixed) {
-            Some(termlogger) => termlogger,
-            None => SimpleLogger::new(LevelFilter::Info, Config::default()),
-        },
-    );
+    let mut loggers: Vec<Box<dyn SharedLogger>> =
+        vec![
+            match TermLogger::new(LevelFilter::Info, Config::default(), TerminalMode::Mixed) {
+                Some(termlogger) => termlogger,
+                None => SimpleLogger::new(LevelFilter::Info, Config::default()),
+            },
+        ];
     if let Some(path) = matches.value_of("log-file") {
         if !path.is_empty() {
             loggers.push(WriteLogger::new(

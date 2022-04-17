@@ -221,12 +221,9 @@ async fn handle_command(
             conn.hmac_payload = Some(generate_hmac());
             let resp = vec!["200 ".to_string(), conn.get_payload(), "\n".to_string()];
             match sender.send(FrameCommand::Send { data: resp }).await {
-                Ok(_) => {
-                    return;
-                }
+                Ok(_) => {}
                 Err(e) => {
                     error!("Error sending to frame task (From: Handle HMAC) {:?}", e);
-                    return;
                 }
             }
         }
@@ -243,15 +240,13 @@ async fn handle_command(
                         decode(conn.get_payload().into_bytes())
                             .expect("error with payload decode")
                             .as_slice(),
-                        &client_hash.as_slice(),
+                        client_hash.as_slice(),
                     ) {
                         Ok(_) => {
                             info!("Hashes match!");
                             let resp = vec!["200\n".to_string()];
                             match sender.send(FrameCommand::Send { data: resp }).await {
-                                Ok(_) => {
-                                    return;
-                                }
+                                Ok(_) => {}
                                 Err(e) => error!(
                                     "Error sending to frame task (From: Handle Connection) {:?}",
                                     e
@@ -260,18 +255,15 @@ async fn handle_command(
                         }
                         _ => {
                             error!("Hashes do not equal");
-                            return;
                         }
                     };
                 }
 
                 (None, _) => {
                     error!("No stream key attached to connect command");
-                    return;
                 }
                 (_, None) => {
                     error!("No channel id attached to connect command");
-                    return;
                 }
             }
         }
@@ -319,9 +311,7 @@ async fn handle_command(
                     // stops sending for some reason.
                     let resp = vec!["".to_string()];
                     match sender.send(FrameCommand::Send { data: resp }).await {
-                        Ok(_) => {
-                            return;
-                        }
+                        Ok(_) => {}
                         Err(e) => error!(
                             "Error sending to frame task (From: Handle Connection) {:?}",
                             e
@@ -337,9 +327,7 @@ async fn handle_command(
             // info!("Handling PING Command");
             let resp = vec!["201\n".to_string()];
             match sender.send(FrameCommand::Send { data: resp }).await {
-                Ok(_) => {
-                    return;
-                }
+                Ok(_) => {}
                 Err(e) => error!(
                     "Error sending to frame task (From: Handle Connection) {:?}",
                     e
@@ -348,7 +336,6 @@ async fn handle_command(
         }
         _ => {
             warn!("Command not implemented yet. Tell GRVY to quit his day job");
-            return;
         }
     }
 }
