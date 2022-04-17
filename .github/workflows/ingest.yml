@@ -4,10 +4,12 @@ name: Ingest Lint
 
 jobs:
   lint:
-    name: Check
+    name: CI
     runs-on: ubuntu-latest
     defaults:
       run:
+        working-directory: ./lightspeed-ingest
+      uses:
         working-directory: ./lightspeed-ingest
     steps:
       - uses: actions/checkout@v2
