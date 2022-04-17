@@ -6,6 +6,9 @@ jobs:
   lint:
     name: Check
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./lightspeed-ingest
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1
@@ -13,12 +16,12 @@ jobs:
           profile: minimal
           toolchain: stable
           override: true
-      - name: Add rustfmt and clippy
+      - name: Add clippy 
         run: rustup component add clippy
+      - name: Add rustfmt
         run: rustup component add rustfmt
       - name: Check
         uses: actions-rs/cargo@v1
-        working-directory: ./lightspeed-ingest
         with:
           command: check
       - name: Fmt
@@ -26,7 +29,6 @@ jobs:
         with:
           command: fmt
           args: --all -- --check
-        working-directory: ./lightspeed-ingest
       - name: Clippy
         uses: actions-rs/cargo@v1
         with:
