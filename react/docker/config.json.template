@@ -1,0 +1,3 @@
+{
+  "wsUrl": "ws://${WEBSOCKET_HOST}:${WEBSOCKET_PORT}/websocket"
+}
