@@ -10,8 +10,11 @@ import { VideoContainer, MainContainer } from "./styles/appStyles";
 
 const appReducer = (state, action) => {
   switch (action.type) {
-    case "initStream": {
-      return { ...state, stream: action.stream };
+    case "track": {
+      console.log("adding track", action.track);
+      state.stream.addTrack(action.track);
+      console.log(state.stream.getTracks());
+      return { ...state, stream: state.stream };
     }
     case "info": {
       return { ...state, viewers: action.viewers };
@@ -24,7 +27,7 @@ const appReducer = (state, action) => {
 };
 
 const initialState = {
-  stream: null,
+  stream: new MediaStream(),
   viewers: null,
 };
 
@@ -34,19 +37,15 @@ const App = () => {
   const { socket } = useSocket();
 
   // Offer to receive 1 audio, and 1 video tracks
-  pc.addTransceiver("audio", { direction: "recvonly" });
-  // pc.addTransceiver('video', { 'direction': 'recvonly' })
-  pc.addTransceiver("video", { direction: "recvonly" });
+  // pc.addTransceiver("audio", { direction: "recvonly" });
+  // // pc.addTransceiver('video', { 'direction': 'recvonly' })
+  // pc.addTransceiver("video", { direction: "recvonly" });
 
   pc.ontrack = (event) => {
-    const {
-      track: { kind },
-      streams,
-    } = event;
-
-    if (kind === "video") {
-      dispatch({ type: "initStream", stream: streams[0] });
-    }
+    console.log("onTrack", event);
+    const { track, streams } = event;
+    console.log(streams[0].getTracks());
+    dispatch({ type: "track", track: track });
   };
 
   pc.onicecandidate = (e) => {

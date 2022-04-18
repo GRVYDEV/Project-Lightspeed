@@ -1,3 +1,4 @@
+//go:build !js
 // +build !js
 
 package main
@@ -11,6 +12,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"sync"
 
 	"github.com/GRVYDEV/lightspeed-webrtc/ws"
 	"github.com/gorilla/websocket"
@@ -57,13 +59,13 @@ func main() {
 	fmt.Println("Waiting for RTP Packets")
 
 	// Create a video track
-	videoTrack, err = webrtc.NewTrackLocalStaticRTP(webrtc.RTPCodecCapability{MimeType: "video/h264"}, "video", "pion")
+	videoTrack, err = webrtc.NewTrackLocalStaticRTP(webrtc.RTPCodecCapability{MimeType: "video/H264"}, "video", "pion")
 	if err != nil {
 		panic(err)
 	}
 
 	// Create an audio track
-	audioTrack, err = webrtc.NewTrackLocalStaticRTP(webrtc.RTPCodecCapability{MimeType: "audio/opus"}, "video", "pion")
+	audioTrack, err = webrtc.NewTrackLocalStaticRTP(webrtc.RTPCodecCapability{MimeType: "audio/opus"}, "audio", "pion")
 	if err != nil {
 		panic(err)
 	}
@@ -75,7 +77,7 @@ func main() {
 	go func() {
 		http.HandleFunc("/websocket", websocketHandler)
 
-		wsAddr := *addr+":"+strconv.Itoa(*wsPort)
+		wsAddr := *addr + ":" + strconv.Itoa(*wsPort)
 		if *sslCert != "" && *sslKey != "" {
 			log.Fatal(http.ListenAndServeTLS(wsAddr, *sslCert, *sslKey, nil))
 		} else {
@@ -85,10 +87,14 @@ func main() {
 
 	inboundRTPPacket := make([]byte, 4096) // UDP MTU
 
+	var once sync.Once
+
 	// Read RTP packets forever and send them to the WebRTC Client
 	for {
 
 		n, _, err := listener.ReadFrom(inboundRTPPacket)
+
+		once.Do(func() { fmt.Print("houston we have a packet") })
 
 		if err != nil {
 			fmt.Printf("error during read: %s", err)
