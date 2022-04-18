@@ -47,9 +47,10 @@
     - [OBS](#obs)
   - [Additional Notes](#additional-notes)
 - [Contributing](#contributing)
-  - [Issues](contributing/ISSUES.md)
-  - [Pull Requests](contributing/PULL-REQUESTS.md)
-  - [License](LICENSE.md)
+  - [Issue Template](contributing/ISSUES.md)
+  - [Pull Request Template](contributing/PULL-REQUESTS.md)
+- [License](#license)
+- [Contact](#contact)
 - [Acknowledgements](#acknowledgements)
 
 <!-- ABOUT THE PROJECT -->
@@ -351,11 +352,14 @@ Any contributions you make are **greatly appreciated**.
 4. Push to the Branch: ``git push origin feature/AmazingFeature``
 5. Open a Pull Request
 
+[ISSUE TEMPLATE](contributing/ISSUES.md)
+[PULL REQUEST TEMPLATE](contributing/PULL-REQUESTS.md)
+
 <!-- LICENSE -->
 
 ## License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+Distributed under the MIT License. See [LICENSE.md](LICENSE.md) for more information.
 
 <!-- CONTACT -->
 
