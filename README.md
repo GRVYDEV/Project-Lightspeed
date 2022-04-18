@@ -5,6 +5,7 @@
 </p>
   <h1 align="center">Project Lightspeed</h1>
 <div align="center">
+    <a href="https://discord.gg/UpQZANPYmZ"><img src="https://img.shields.io/discord/796390666673324073?color=%237289DA&label=Chat%20On%20Discord" alt="Discord Badge"/></a>
     <a href="https://github.com/GRVYDEV/Project-Lightspeed/stargazers"><img src="https://img.shields.io/github/stars/GRVYDEV/Project-Lightspeed" alt="Stars Badge"/></a>
     <a href="https://github.com/GRVYDEV/Project-Lightspeed/network/members"><img src="https://img.shields.io/github/forks/GRVYDEV/Project-Lightspeed" alt="Forks Badge"/></a>
     <a href="https://github.com/GRVYDEV/Project-Lightspeed/pulls"><img src="https://img.shields.io/github/issues-pr/GRVYDEV/Project-Lightspeed" alt="Pull Requests Badge"/></a>
@@ -14,9 +15,7 @@
 </div>
 <br />
 <p align="center">
-    A self contained OBS -> FTL -> WebRTC live streaming server. Comprised of 3 parts once configured anyone can achieve sub-second OBS to the browser livestreaming 
-    <!-- <br /> -->
-    <!-- <a href="https://github.com/GRVYDEV/Project-Lightspeed"><strong>Explore the docs »</strong></a> -->
+    A Self-Contained WebRTC streaming server designed to achieve sub-second browser livestreaming
     <br />
     <br />
     <a href="https://youtu.be/Dzin4_A8RDs">View Demo</a>
@@ -27,51 +26,31 @@
 </p>
 
 <!-- TABLE OF CONTENTS -->
-<details open="open">
-  <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><ul>
-          <li><a href="#how-it-works">How It Works</a></li>
-          <li><a href="#diagram">Diagram</a</li>
-        </ul></li>
-        <li><a href="#built-with">Built With</a></li>
-        <li><a href="#components">Components</a></li>
-      </ul>
-    </li>
-    <li><a href="#discord">Discord</a></li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a>
-            <ul>
-                <li><a href="#lightspeed-ingest">Lightspeed Ingest</a></li>
-                <li><a href="#lightspeed-webrtc">Lightspeed WebRTC</a></li>
-                <li><a href="#lightspeed-react">Lightspeed React</a></li>
-            </ul>
-        </li>
-        <li><a href="#docker">Docker / Compose</a></li>
-        <li><a href="#community-installation">Community Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#streaming-from-obs">Streaming From OBS</a>
-        <ul>
-            <li><a href="#stream-key">Stream Key</a></li>
-        </ul>
-    </li>  
-    <li><a href="#help">Help</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#bugs">Bugs</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgements">Acknowledgements</a></li>
-  </ol>
-</details>
+# Table Of Contents
+- [Introduction](#introduction)
+  - [About](#about-the-project)
+  - [Use Cases](#use-cases)
+  - [Roadmap](#roadmap)
+  - [Architecture](#architecture)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Project Structure](#project-structure)
+  - [Installation](#installation)
+    - [Manual](#manual)
+    - [Docker](#docker)
+- [Configuration](#configuration)
+  - [Environment Variables](#environment-variables)
+  - [Port Mappings / Firewall](#firewall)
+  - [CLI Usage](#cli-usage)
+  - [Streaming](#streaming)
+    - [Stream Key](#stream-key)
+    - [OBS](#obs)
+  - [Additional Notes](#additional-notes)
+- [Contributing](#contributing)
+  - [Issues](contributing/ISSUES.md)
+  - [Pull Requests](contributing/PULL-REQUESTS.md)
+  - [License](LICENSE.md)
+- [Acknowledgements](#acknowledgements)
 
 <!-- ABOUT THE PROJECT -->
 
@@ -83,31 +62,29 @@ Project Lightspeed is a fully self-contained live streaming server. With Lightsp
 own sub-second latency live streaming platform. The Lightspeed repository contains the instructions for installing 
 and deploying the entire application. So far, Lightspeed includes an ingest service, broadcast service via webRTC 
 and a web application for viewing. Lightspeed is however completely modular. What this means is that you can write 
-your own web app, ingest server or broadcast server. 
+your own web app, ingest server or broadcast server.
 
-### How It Works
+## Use Cases
+
+Sample Text
+
+## Roadmap
+
+I will be fleshing out the roadmap in the coming days. As of right now I want to get this to a point where it is 
+as close to other live streaming services as possible. If there are any features that you want to see then feel 
+free to suggest them!
+
+See the [open issues](https://github.com/GRVYDEV/Project-Lightspeed/issues) for a list of proposed features 
+(and known issues).
+
+## Architecture
 
 Lightspeed Ingest listens on port 8084 which is the port used by the FTL protocol. Upon receiving a connection it completes the FTL handshake and negotiates a port (this is currently bugged however and defaults to 65535). Once the negotiation is done Lightspeed WebRTC listens on the negotiated port (in the future Lightspeed WebRTC will listen on the loopback interface so the ingest has more control on what packets we accept) and relays the incoming RTP packets over WebRTC. Lightspeed React communicates via websocket with Lightspeed WebRTC to exchange ICE Candidates and once a connection is established the video can be viewed.
 
-### Diagram
+#### Diagram
 Here is a diagram that outlines the current implementation and the future implementation that I would like to achieve. The reason I want the packets relayed from Ingest to WebRTC on the loopback interface is so that we have more control over who can send packets. Meaning that when a DISCONNECT command is recieved we can terminate the UDP listener so that someone could not start sending packets that we do not want
 
 <img src="images/Lightspeed-Diagram.jpeg" alt="Lightspeed Diagram">
-
-### Built With
-
-- Rust
-- Golang
-- React
-
-### Components
-
-- [Lightspeed Ingest](https://github.com/GRVYDEV/Lightspeed-ingest)
-- [Lightspeed WebRTC](https://github.com/GRVYDEV/Lightspeed-webrtc)
-- [Lightspeed React](https://github.com/GRVYDEV/Lightspeed-react)
-
-## Discord
-We now have a [Discord](https://discord.gg/UpQZANPYmZ) server! This is a great way to stay up to date with the project and join in on the conversation! Come stop by!
 
 <!-- GETTING STARTED -->
 
@@ -120,7 +97,13 @@ each repo however I will include them here for the sake of simplicity.
 
 In order to run Lightspeed, [Golang](https://golang.org/doc/install), [Rust](https://www.rust-lang.org/tools/install), and [npm](https://www.npmjs.com/get-npm) are required. Additionally the Rust repo requires a C compiler. If you get a `linker cc not found` error then you need to install a C compiler.
 
-### Installation
+### Project Structure
+
+Sample Text
+
+## Installation
+
+### Manual
 
 #### Lightspeed Ingest
 
@@ -163,9 +146,69 @@ Some of our awesome community members have written their own installers for Ligh
 
 - [Ubuntu Installer](https://github.com/GRVYDEV/Project-Lightspeed/tree/main/contrib/ubuntu_installer)
 
+---
+
+<!-- DOCKER -->
+### Docker
+
+Install [Docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/install/).
+
+See the `.env` file to configure per your needs. At minimum, you need to set `WEBSOCKET_HOST`. The stream key will be 
+generated automatically on boot, and change each restart, unless you set a static one.
+
+### Development
+
+Use `docker-compose up` to start all containers at once and monitor the logs. When you are happy it is working you can 
+move to running detached.
+
+### Run Detached (background)
+
+Use `docker-compose up -d` to start all containers detached to have them run in the background. 
+
+Use `docker ps` to verify uptime, port forwarding, etc. 
+
+You can also use `docker-compose logs -f` to follow the logs of all the containers, and press `CTRL` + `C` to stop 
+following but leave the containers running.
+
+### Build Images manually
+
+For development purposes you can choose to build the containers locally instead of Docker Hub. Uncomment the `build:` 
+in the docker-compose.yaml. Configure the `context:` to be the path where you have cloned the respective respository 
+([React](https://github.com/GRVYDEV/Lightspeed-react), [WebRTC](https://github.com/GRVYDEV/Lightspeed-webrtc), or 
+[Ingest](https://github.com/GRVYDEV/Lightspeed-ingest)). For example, create a base folder and clone each repostiory 
+there as such:
+
+```
+mkdir Lightspeed
+git clone ...
+git clone ...
+git clone ...
+---
+./Lightspeed  # base folder 
+   Project-Lightspeed/  # you are here
+   Lightspeed-react/
+   Lightspeed-ingest/
+   Lightspeed-webrtc/
+ 
+```
+
+Run `docker-compose build` to build the local container images. If you change the source code you will need to run again.
+You can run rebuild an individual container via `docker-compose build lightspeed-react`.
+
+
 <!-- USAGE EXAMPLES -->
 
-## Usage
+## Configuration
+
+### Environment Variables
+
+Sample Text
+
+### Firewall
+
+Sample Text
+
+### CLI Usage
 
 #### Lightspeed Ingest
 
@@ -221,59 +264,25 @@ The above will serve the build folder on port 80.
 
 View Lightspeed in your web browser by visiting http://hostname or http://your.ip.address.here
 
+### Additional Notes
+
+Sample Text
 
 ---
 
-<!-- DOCKER -->
-## Docker
+## Streaming
 
-Install [Docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/install/).
+#### Stream Key
 
-See the `.env` file to configure per your needs. At minimum, you need to set `WEBSOCKET_HOST`. The stream key will be 
-generated automatically on boot, and change each restart, unless you set a static one.
+We are no longer using a default streamkey! If you are still using one please pull from master on the Lightspeed-ingest 
+repository. Now, by default on first time startup a new streamkey will be generated and output to the terminal for you. 
+In order to regenerate this key simply delete the file it generates called `hash`. In a Docker context we will work to 
+make the key reset process as easy as possible. Simply copy the key output in the terminal to OBS and you are all set! 
+This key WILL NOT change unless the `hash` file is deleted.
 
-### Development
+<img src="images/streamkey-example.png" alt="Streamkey example">
 
-Use `docker-compose up` to start all containers at once and monitor the logs. When you are happy it is working you can 
-move to running detached.
-
-### Run Detached (background)
-
-Use `docker-compose up -d` to start all containers detached to have them run in the background. 
-
-Use `docker ps` to verify uptime, port forwarding, etc. 
-
-You can also use `docker-compose logs -f` to follow the logs of all the containers, and press `CTRL` + `C` to stop 
-following but leave the containers running.
-
-### Build Images manually
-
-For development purposes you can choose to build the containers locally instead of Docker Hub. Uncomment the `build:` 
-in the docker-compose.yaml. Configure the `context:` to be the path where you have cloned the respective respository 
-([React](https://github.com/GRVYDEV/Lightspeed-react), [WebRTC](https://github.com/GRVYDEV/Lightspeed-webrtc), or 
-[Ingest](https://github.com/GRVYDEV/Lightspeed-ingest)). For example, create a base folder and clone each repostiory 
-there as such:
-
-```
-mkdir Lightspeed
-git clone ...
-git clone ...
-git clone ...
----
-./Lightspeed  # base folder 
-   Project-Lightspeed/  # you are here
-   Lightspeed-react/
-   Lightspeed-ingest/
-   Lightspeed-webrtc/
- 
-```
-
-Run `docker-compose build` to build the local container images. If you change the source code you will need to run again.
-You can run rebuild an individual container via `docker-compose build lightspeed-react`.
-
----
-
-## Streaming From OBS
+### OBS
 
 By default, since we are using the FTL protocol, you cannot just use a Custom server. You will need to edit 
 your `services.json` file. It can be found at:
@@ -313,16 +322,6 @@ After restarting OBS you should be able to see your service in the OBS settings 
 
 ---
 
-### Stream Key
-
-We are no longer using a default streamkey! If you are still using one please pull from master on the Lightspeed-ingest 
-repository. Now, by default on first time startup a new streamkey will be generated and output to the terminal for you. 
-In order to regenerate this key simply delete the file it generates called `hash`. In a Docker context we will work to 
-make the key reset process as easy as possible. Simply copy the key output in the terminal to OBS and you are all set! 
-This key WILL NOT change unless the `hash` file is deleted.
-
-<img src="images/streamkey-example.png" alt="Streamkey example">
-
 ## Help
 This project is still very much a work in progress and a lot of improvements will be made to the deployment process. 
 If something is unclear or you are stuck there are two main ways you can get help.
@@ -332,14 +331,7 @@ If something is unclear or you are stuck there are two main ways you can get hel
 
 <!-- ROADMAP -->
 
-## Roadmap
 
-I will be fleshing out the roadmap in the coming days. As of right now I want to get this to a point where it is 
-as close to other live streaming services as possible. If there are any features that you want to see then feel 
-free to suggest them!
-
-See the [open issues](https://github.com/GRVYDEV/Project-Lightspeed/issues) for a list of proposed features 
-(and known issues).
 
 ## Bugs
 
