@@ -11,9 +11,7 @@ import { VideoContainer, MainContainer } from "./styles/appStyles";
 const appReducer = (state, action) => {
   switch (action.type) {
     case "track": {
-      console.log("adding track", action.track);
       state.stream.addTrack(action.track);
-      console.log(state.stream.getTracks());
       return { ...state, stream: state.stream };
     }
     case "info": {
@@ -36,15 +34,8 @@ const App = () => {
   const { pc } = useRTC();
   const { socket } = useSocket();
 
-  // Offer to receive 1 audio, and 1 video tracks
-  // pc.addTransceiver("audio", { direction: "recvonly" });
-  // // pc.addTransceiver('video', { 'direction': 'recvonly' })
-  // pc.addTransceiver("video", { direction: "recvonly" });
-
   pc.ontrack = (event) => {
-    console.log("onTrack", event);
-    const { track, streams } = event;
-    console.log(streams[0].getTracks());
+    const { track } = event;
     dispatch({ type: "track", track: track });
   };
 
