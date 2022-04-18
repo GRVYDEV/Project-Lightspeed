@@ -352,8 +352,9 @@ Any contributions you make are **greatly appreciated**.
 4. Push to the Branch: ``git push origin feature/AmazingFeature``
 5. Open a Pull Request
 
-[ISSUE TEMPLATE](contributing/ISSUES.md)
-[PULL REQUEST TEMPLATE](contributing/PULL-REQUESTS.md)
+#### Templates
+- [ISSUE TEMPLATE](contributing/ISSUES.md)
+- [PULL REQUEST TEMPLATE](contributing/PULL-REQUESTS.md)
 
 <!-- LICENSE -->
 
