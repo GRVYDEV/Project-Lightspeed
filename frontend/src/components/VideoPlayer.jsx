@@ -9,6 +9,7 @@ const VideoPlayer = ({ src }) => {
   useEffect(() => {
     if (src) {
       videoRef.current.srcObject = src;
+      videoRef.current.play();
     }
   }, [src]);
 
