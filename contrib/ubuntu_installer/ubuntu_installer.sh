@@ -127,7 +127,7 @@ EOF
 [Unit]
 Description=Project Lightspeed ingest service
 After=network-online.target
-
+Wants=network-online.target
 [Service]
 TimeoutStartSec=0
 Environment=LS_INGEST_ADDR=${IP_ADDRESS}
@@ -136,7 +136,7 @@ Restart=always
 RestartSec=60
 
 [Install]
-WantedBy=network-online.target
+WantedBy=multi-user.target
 EOF
 
     ## Create systemd service for webrtc:
@@ -145,7 +145,7 @@ EOF
 [Unit]
 Description=Project Lightspeed webrtc service
 After=network-online.target
-
+Wants=network-online.target
 [Service]
 TimeoutStartSec=0
 Environment=IP_ADDRESS=${WEBRTC_IP_ADDRESS}
@@ -154,7 +154,7 @@ Restart=always
 RestartSec=60
 
 [Install]
-WantedBy=network-online.target
+WantedBy=multi-user.target
 EOF
 
     ## Install and start services:
