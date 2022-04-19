@@ -20,7 +20,7 @@ services:
     #Uncomment below to build locally
 #    image: lightspeed-react
 #    build:
-#      context: ./frontend
+#      context: ./react
 #      dockerfile: Dockerfile
     env_file: '.env'
     restart: on-failure

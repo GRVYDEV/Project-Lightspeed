@@ -9,18 +9,18 @@ import {
   AlphaTag,
   ViewerTag,
 } from "../styles/videoDetailsStyles";
-import { LightspeedLogoURL, CenterIcon } from "../assets/constants";
+import { LightspeedLogoURL } from "../assets/constants";
 
 const VideoDetails = ({ viewers }) => {
   return (
     <VideoDetailsContainer>
       <DetailsTop>
         <AlphaTag>
-        <i className="fas fa-wrench" style={CenterIcon}></i>
+          <i className="fas fa-construction badge-icon"></i>
           <span>Alpha</span>
         </AlphaTag>
         <ViewerTag>
-          <i className="fas fa-user-friends" style={CenterIcon}></i>
+          <i className="fas fa-user-friends"></i>
           <span>{viewers}</span>
         </ViewerTag>
       </DetailsTop>

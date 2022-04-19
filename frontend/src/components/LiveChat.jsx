@@ -16,7 +16,7 @@ const LiveChat = () => {
         </ChatHeading>
 
         <ChatBody>
-          <i className="fas fa-wrench fa-3x"></i>
+          <i className="fas fa-construction fa-3x"></i>
           <h4>Coming Soon!</h4>
         </ChatBody>
       </ChatMain>
