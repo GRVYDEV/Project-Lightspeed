@@ -122,17 +122,24 @@ In order to run Lightspeed, [Golang](https://golang.org/doc/install), [Rust](htt
 
 ### Installation
 
-#### Lightspeed Ingest
+#### Clone Repository
 
 ```sh
-git clone https://github.com/GRVYDEV/Lightspeed-ingest.git
-cd Lightspeed-ingest
+git clone https://github.com/GRVYDEV/Project-Lightspeed
+```
+
+#### Build Ingest Server
+
+```sh
+cd ingest
 cargo build
 ```
 
-#### Lightspeed WebRTC
+#### Build WebRTC Server
 
 Using go get
+
+**Warning: Deprecated method (relies on outdated repository)**
 
 ```sh
 export GO111MODULE=on
@@ -142,21 +149,19 @@ go get github.com/GRVYDEV/lightspeed-webrtc
 Using git
 
 ```sh
-git clone https://github.com/GRVYDEV/Lightspeed-webrtc.git
-cd Lightspeed-webrtc
+cd webrtc
 export GO111MODULE=on
 go build
 ```
 
-#### Lightspeed React
+#### Frontend (Based on React.JS)
 
 ```sh
-git clone https://github.com/GRVYDEV/Lightspeed-react.git
-cd Lightspeed-react
+cd frontend
 npm install
 ```
 
-### Community Installation
+### Community Installation (**Warning: Outdated. Uses deprecated repositories**)
 Some of our awesome community members have written their own installers for Lightspeed. Here are links to those!
 
 **Note**: If you want to make a custom installer do so in the `/contrib` folder and submit a PR. Please make sure to include a README on how to use it!
@@ -170,13 +175,15 @@ Some of our awesome community members have written their own installers for Ligh
 #### Lightspeed Ingest
 
 ```sh
-cd Lightspeed-ingest
+cd ingest
 cargo run --release
 ```
 
 #### Lightspeed WebRTC
 
 Using go get
+
+**Warning: Deprecated method (relies on outdated repository)**
 
 ```sh
 lightspeed-webrtc --addr=XXX.XXX.XXX.XXX
@@ -185,7 +192,7 @@ lightspeed-webrtc --addr=XXX.XXX.XXX.XXX
 Using git
 
 ```sh
-cd Lightspeed-webrtc
+cd webrtc
 go build
 ./lightspeed-webrtc --addr=XXX.XXX.XXX.XXX
 ```
@@ -212,7 +219,7 @@ You can host the static site locally using `serve` which can be found [here](htt
 
 **Note**: your version of `serve` may require the `-p` flag instead of `-l` for the port
 ```sh
-cd Lightspeed-react
+cd frontend
 npm run build
 serve -s build -l 80
 ```
@@ -248,28 +255,20 @@ following but leave the containers running.
 
 ### Build Images manually
 
-For development purposes you can choose to build the containers locally instead of Docker Hub. Uncomment the `build:` 
-in the docker-compose.yaml. Configure the `context:` to be the path where you have cloned the respective respository 
-([React](https://github.com/GRVYDEV/Lightspeed-react), [WebRTC](https://github.com/GRVYDEV/Lightspeed-webrtc), or 
-[Ingest](https://github.com/GRVYDEV/Lightspeed-ingest)). For example, create a base folder and clone each repostiory 
-there as such:
+For development purposes you can choose to build the containers locally instead of Docker Hub. Uncomment the `build:` and `context:` directives
+in the docker-compose.yml
 
 ```
-mkdir Lightspeed
-git clone ...
-git clone ...
-git clone ...
+git clone https://github.com/GRVYDEV/Project-Lightspeed
 ---
-./Lightspeed  # base folder 
-   Project-Lightspeed/  # you are here
-   Lightspeed-react/
-   Lightspeed-ingest/
-   Lightspeed-webrtc/
- 
+./Project-Lightspeed  # Monorepo Root
+   frontend/
+   ingest/
+   webrtc/
 ```
 
 Run `docker-compose build` to build the local container images. If you change the source code you will need to run again.
-You can run rebuild an individual container via `docker-compose build lightspeed-react`.
+You can run rebuild an individual container via `docker-compose build lightspeed-webrtc`.
 
 ---
 
