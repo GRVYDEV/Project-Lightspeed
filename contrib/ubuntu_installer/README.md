@@ -1,5 +1,9 @@
 # Project Lightspeed Ubuntu 20.04 installer
 
+> **Warning**
+> This script is designed for use on a **fresh install**. Please backup any existing configurations as some **will be overwritten** to install Lightspeed.
+> If you would like an alternate solution that does not require a fresh installation, please consult the [official wiki](https://github.com/GRVYDEV/Project-Lightspeed/README.md) for a docker based setup guide.
+
 Contained in this directory is a bash script to automatically install
 [GRVYDEV/Project-Lightspeed](https://github.com/GRVYDEV/Project-Lightspeed) on
 Ubuntu 20.04, compiled directly from source repositories, and install systemd
