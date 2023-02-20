@@ -373,7 +373,7 @@ pub fn read_stream_key(startup: bool, stream_key_env: Option<&str>) -> Vec<u8> {
             if !stream_key.is_empty() {
                 let key = stream_key.as_bytes().to_vec();
                 print_stream_key(key.to_vec());
-                fs::write("hash", hex::encode(&stream_key))
+                fs::write("hash", hex::encode(stream_key))
                     .expect("Unable to write stream key to hash file");
                 return key;
             }
