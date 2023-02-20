@@ -1,0 +1,28 @@
+{
+  "name": "project-lightspeed",
+  "version": "1.0.0",
+  "description": "<p align=\"center\"> <a  href=\"https://github.com/GRVYDEV/Project-Lightspeed\">     <img src=\"images/lightspeedlogo.svg\" alt=\"Logo\" width=\"150\" height=\"150\"> </a> </p>   <h1 align=\"center\">Project Lightspeed</h1> <div align=\"center\">     <a href=\"https://github.com/GRVYDEV/Project-Lightspeed/stargazers\"><img src=\"https://img.shields.io/github/stars/GRVYDEV/Project-Lightspeed\" alt=\"Stars Badge\"/></a>     <a href=\"https://github.com/GRVYDEV/Project-Lightspeed/network/members\"><img src=\"https://img.shields.io/github/forks/GRVYDEV/Project-Lightspeed\" alt=\"Forks Badge\"/></a>     <a href=\"https://github.com/GRVYDEV/Project-Lightspeed/pulls\"><img src=\"https://img.shields.io/github/issues-pr/GRVYDEV/Project-Lightspeed\" alt=\"Pull Requests Badge\"/></a>     <a href=\"https://github.com/GRVYDEV/Project-Lightspeed/issues\"><img src=\"https://img.shields.io/github/issues/GRVYDEV/Project-Lightspeed\" alt=\"Issues Badge\"/></a>     <a href=\"https://github.com/GRVYDEV/Project-Lightspeed/graphs/contributors\"><img alt=\"GitHub contributors\" src=\"https://img.shields.io/github/contributors/GRVYDEV/Project-Lightspeed?color=2b9348\"></a>     <a href=\"https://github.com/GRVYDEV/Project-Lightspeed/blob/master/LICENSE\"><img src=\"https://img.shields.io/github/license/GRVYDEV/Project-Lightspeed?color=2b9348\" alt=\"License Badge\"/></a> </div> <br /> <p align=\"center\">     A self contained OBS -> FTL -> WebRTC live streaming server. Comprised of 3 parts once configured anyone can achieve sub-second OBS to the browser livestreaming      <!-- <br /> -->     <!-- <a href=\"https://github.com/GRVYDEV/Project-Lightspeed\"><strong>Explore the docs »</strong></a> -->     <br />     <br />     <a href=\"https://youtu.be/Dzin4_A8RDs\">View Demo</a>     ·     <a href=\"https://github.com/GRVYDEV/Project-Lightspeed/issues\">Report a Bug</a>     ·     <a href=\"https://github.com/GRVYDEV/Project-Lightspeed/issues\">Request Features</a> </p>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GRVYDEV/Project-Lightspeed.git"
+  },
+  "author": "GRVYDEV",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GRVYDEV/Project-Lightspeed/issues"
+  },
+  "homepage": "https://github.com/GRVYDEV/Project-Lightspeed#readme",
+  "devDependencies": {
+    "@nrwl/devkit": "^15.7.2",
+    "@nrwl/nx-cloud": "latest",
+    "@nx-go/nx-go": "^2.7.0",
+    "nx": "15.7.2"
+  },
+  "nx": {
+    "targets": {}
+  }
+}

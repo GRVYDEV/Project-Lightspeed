@@ -1,0 +1,31 @@
+{
+  "name": "webrtc",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "./webrtc",
+  "implicitDependencies": ["ingest"],
+  "targets": {
+    "build": {
+    "dependsOn": ["^build"],
+    "executor": "nx:run-commands",
+      "options": {
+        "cwd": "webrtc/",
+        "command": "go build -o ../dist/webrtc main.go"
+      }
+    },
+    "serve": {
+      "dependsOn": ["^build", "build"],
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "./dist/webrtc --ingest-path=dist/lightspeed-ingest"
+      }
+    },
+    "test": {
+      "executor": "@nx-go/nx-go:test"
+    },
+    "lint": {
+      "executor": "@nx-go/nx-go:lint"
+    }
+  },
+  "tags": []
+}
