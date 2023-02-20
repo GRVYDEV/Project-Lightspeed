@@ -1,4 +1,4 @@
-module github.com/GRVYDEV/lightspeed-webrtc
+module github.com/GRVYDEV/Project-Lightspeed/webrtc
 
 go 1.15
 

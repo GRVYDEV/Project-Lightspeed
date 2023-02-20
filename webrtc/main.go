@@ -14,7 +14,8 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/GRVYDEV/lightspeed-webrtc/ws"
+	"github.com/GRVYDEV/Project-Lightspeed/webrtc/ingest"
+	"github.com/GRVYDEV/Project-Lightspeed/webrtc/ws"
 	"github.com/gorilla/websocket"
 
 	"github.com/pion/interceptor"
@@ -23,13 +24,19 @@ import (
 )
 
 var (
-	addr     = flag.String("addr", "localhost", "http service address")
-	ip       = flag.String("ip", "none", "IP address for webrtc")
-	wsPort   = flag.Int("ws-port", 8080, "Port for websocket")
-	rtpPort  = flag.Int("rtp-port", 65535, "Port for RTP")
-	ports    = flag.String("ports", "20000-20500", "Port range for webrtc")
-	sslCert  = flag.String("ssl-cert", "", "Ssl cert for websocket (optional)")
-	sslKey   = flag.String("ssl-key", "", "Ssl key for websocket (optional)")
+	addr    = flag.String("addr", "localhost", "http service address")
+	ip      = flag.String("ip", "none", "IP address for webrtc")
+	wsPort  = flag.Int("ws-port", 8080, "Port for websocket")
+	rtpPort = flag.Int("rtp-port", 65535, "Port for RTP")
+	ports   = flag.String("ports", "20000-20500", "Port range for webrtc")
+	sslCert = flag.String("ssl-cert", "", "Ssl cert for websocket (optional)")
+	sslKey  = flag.String("ssl-key", "", "Ssl key for websocket (optional)")
+
+	ingestPath      = flag.String("ingest-path", "lightspeed-ingest", "Path to the lightspeed-ingest binary")
+	ingestAddr      = flag.String("ingest-addr", "", "The address for the ingest server to bind to default 0.0.0.0")
+	ingestStreamKey = flag.String("ingest-stream-key", "", "The stream key for the ingest server to use")
+	ingestLogFile   = flag.String("ingest-log-file", "", "A path to store ingest logs")
+
 	upgrader = websocket.Upgrader{
 		CheckOrigin: func(r *http.Request) bool { return true },
 	}
@@ -44,6 +51,18 @@ var (
 func main() {
 	flag.Parse()
 	log.SetFlags(0)
+
+	iServer := ingest.NewIngestServer(ingest.IngestServerConfig{
+		Path:      *ingestPath,
+		Addr:      *ingestAddr,
+		StreamKey: *ingestStreamKey,
+		LogFile:   *ingestLogFile,
+	})
+
+	err := iServer.Start()
+	if err != nil {
+		log.Fatalf("error starting ingest server %v", err)
+	}
 
 	// Open a UDP Listener for RTP Packets on port 65535
 	listener, err := net.ListenUDP("udp", &net.UDPAddr{IP: net.ParseIP(*addr), Port: *rtpPort})
