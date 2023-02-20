@@ -1,0 +1,23 @@
+{
+  "implicitDependencies": {
+    "go.mod": "*"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/nx-cloud",
+      "options": {
+        "cacheableOperations": [],
+        "accessToken": "YmFmYjFmNjktOTI1NS00MzQzLTg2NWItNjJiMDZiY2Q1YTdkfHJlYWQtd3JpdGU="
+      }
+    }
+  },
+  "targets": {
+    "foo": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "echo foo",
+      }
+    }
+
+  }
+}
