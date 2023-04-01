@@ -13,7 +13,7 @@ services:
     restart: on-failure
     ports:
       - "${INGEST_PORT}:8084"
-  
+
   lightspeed-react:
     container_name: lightspeed-react
     image: projectlightspeed/react
@@ -36,7 +36,7 @@ services:
 #      context: ./webrtc
 #      dockerfile: Dockerfile
     env_file: '.env'
-    command: ["lightspeed-webrtc", "--addr=0.0.0.0", "--ip=${WEBSOCKET_HOST}", "--ports=20000-20100", "run"]
+    command: ["lightspeed-webrtc", "--addr=0.0.0.0", "--ip=${WEBSOCKET_HOST}", "--ports=20000-20100", "--ice-servers=${ICE_SERVERS}", "run"]
     restart: on-failure
     ports:
       - ${WEBSOCKET_PORT}:8080 # WebRTC
