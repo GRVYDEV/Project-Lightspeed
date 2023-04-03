@@ -11,8 +11,7 @@ RUN npm run build
 
 
 FROM nginx:${NGINX_VERSION}-alpine
-ENV WEBSOCKET_HOST=localhost
-ENV WEBSOCKET_PORT=8080
+ENV WEBSOCKET_URL=ws://localhost:8080
 EXPOSE 80/tcp
 COPY --chown=1000 docker/entrypoint.sh /docker-entrypoint.d/entrypoint.sh
 COPY --chown=1000 docker/config.json.template /config.json.template
