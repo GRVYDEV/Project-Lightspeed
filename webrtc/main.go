@@ -28,6 +28,7 @@ var (
 	wsPort   = flag.Int("ws-port", 8080, "Port for websocket")
 	rtpPort  = flag.Int("rtp-port", 65535, "Port for RTP")
 	ports    = flag.String("ports", "20000-20500", "Port range for webrtc")
+	iceSrv   = flag.String("ice-servers", "none", "Comma seperated list of ICE / STUN servers (optional)")
 	sslCert  = flag.String("ssl-cert", "", "Ssl cert for websocket (optional)")
 	sslKey   = flag.String("ssl-key", "", "Ssl key for websocket (optional)")
 	upgrader = websocket.Upgrader{
@@ -127,8 +128,8 @@ func main() {
 func createWebrtcApi() *webrtc.API {
 	s := webrtc.SettingEngine{}
 
-	// Set a NAT IP if one is given
-	if *ip != "none" {
+	// Set a NAT IP if one is given -- only if no ICE servers are provided
+	if *ip != "none" && *iceSrv == "none" {
 		s.SetNAT1To1IPs([]string{*ip}, webrtc.ICECandidateTypeHost)
 	}
 
@@ -177,8 +178,25 @@ func websocketHandler(w http.ResponseWriter, r *http.Request) {
 	// Create API that takes IP and port range into account
 	api := createWebrtcApi()
 
+	// Create the WebRTC config with ICE server configuration
+	var webrtcCfg webrtc.Configuration
+	if *iceSrv != "none" {
+		iceUrls := strings.Split(*iceSrv, ",")
+		iceServers := make([]webrtc.ICEServer, len(iceUrls))
+		for idx, url := range iceUrls {
+			iceServers[idx] = webrtc.ICEServer{
+				URLs: []string{url},
+			}
+		}
+		webrtcCfg = webrtc.Configuration{
+			ICEServers: iceServers,
+		}
+	} else {
+		webrtcCfg = webrtc.Configuration{}
+	}
+
 	// Create new PeerConnection
-	peerConnection, err := api.NewPeerConnection(webrtc.Configuration{})
+	peerConnection, err := api.NewPeerConnection(webrtcCfg)
 	if err != nil {
 		log.Print(err)
 		return
